@@ -1,0 +1,34 @@
+global simulation time
+t_max: 1.0d3
+dt:    0.05
+
+wavefunction domain
+r_max: 4.0d3          ! radial extent
+l_max: 10             ! OAM Q-numbers
+dr:    2d-1           ! spatial resolution
+rm:    50.0           ! masking radius
+
+atomic properties
+Z: 1                  ! nuclear charge
+nlm: 1 0 0            ! initial-state Q-numbers
+tau: 3.0d2            ! relaxation time
+dtau: 0.05            ! ... time-step
+
+p-electron spectrum
+rng: -0.6 1.0         ! energy limits
+res: 2d-3             ! bin resolution
+ord: 2                ! operator order
+
+field parameters
+type:  trapz-2        ! temporal profile
+E0:    0.1068         ! amplitude (au, 0.4 PW/cm2)
+omg0:  0.0584         ! frequency (au, 780 nm)
+time:  5.0            ! pulse duration
+CEP:   0.0            ! carrier-envelope phase
+t_on:  0.0            ! start time
+
+data output
+dt_save: 0.125 cyc    ! save rate + unit
+
+update runtime log every N time steps
+N: 270

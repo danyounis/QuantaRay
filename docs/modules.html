@@ -1,0 +1,1988 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<title>MODULES</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="modules">
+<h1 class="title">MODULES</h1>
+
+<p>Rev. 8/23/2022.</p>
+<div class="section" id="mathematics-math-f08">
+<h1>Mathematics <tt class="docutils literal">(math.f08)</tt></h1>
+<p><strong>Functions</strong> <tt class="docutils literal">(linspace)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>function linspace_n
+<span class="ln">2 </span>  Construct a linearly-spaced array of a specified length.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  a, b: lower/upper interval bounds
+<span class="ln">5 </span>  n: no. points
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  vec: array of values between [a,b]
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function linspace_d
+<span class="ln">2 </span>  Construct a linearly-spaced array of a specified step size.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  a, b: lower/upper interval bounds
+<span class="ln">5 </span>  dx: step size
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  vec: array of values between [a,b]
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(etc)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>function zeros
+<span class="ln">2 </span>  Return an n-dimensional array of zeros.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n: no. points
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  vec: array of zeros with length n
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function ones
+<span class="ln">2 </span>  Return an n-dimensional array of ones.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n: no. points
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  vec: array of ones with length n
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function Kdelta
+<span class="ln">2 </span>  Kronecker delta function.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n, m: integers
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  r: one if n == m, and zero otherwise.
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(rotM90)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>function rotM90X
+<span class="ln">2 </span>  Rotate a square matrix 90 degrees counter-clockwise.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  M: input matrix
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  V: rotated matrix
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(fliplr)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>function fliplr_xa
+<span class="ln">2 </span>  Reverse-order the entries of an array.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  arr: input array
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  f_arr: flipped array
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function fliplr_xm
+<span class="ln"> 2 </span>  Reverse-order the elements of a matrix.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  M: input matrix
+<span class="ln"> 5 </span>  ax: axis to flip over
+<span class="ln"> 6 </span>output
+<span class="ln"> 7 </span>  f_M: flipped matrix
+<span class="ln"> 8 </span>note:
+<span class="ln"> 9 </span>  - For ax = 0, both rows and columns are flipped.
+<span class="ln">10 </span>  - For ax = 1 (ax = 2), columns (rows) will be flipped upside-down (left-right).
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(etc)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>function Identity
+<span class="ln">2 </span>  Returns the n-by-n identity matrix.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n: square matrix dimension
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  A: identity matrix
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function diag_x
+<span class="ln">2 </span>  Creates a square diagonal matrix from an array.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  arr: input array of pre-allocated length
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  M: diagonal matrix
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function inverse
+<span class="ln"> 2 </span>  Compute the inverse of a real matrix.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  M: square matrix
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  C: inverse of M
+<span class="ln"> 7 </span>note
+<span class="ln"> 8 </span>  - This algorithm is based on Doolittle LU decomposition for Ax=b.
+<span class="ln"> 9 </span>  - If M is singular, C is a matrix of NaNs.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function Kproduct
+<span class="ln">2 </span>  Returns the Kronecker product of two matrices.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  A, B: input matrices of pre-allocated dimensions
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  AB: Kronecker product of A and B
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(tridiag)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine tridiag_matmul_dmat_sp_xyz
+<span class="ln"> 2 </span>  Sparse multiplication of a tri-diagonal with a diagonal matrix.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  A: tri-diagonal matrix
+<span class="ln"> 5 </span>  V: diagonal matrix
+<span class="ln"> 6 </span>output
+<span class="ln"> 7 </span>  y: solution matrix A.V (tri-diagonal)
+<span class="ln"> 8 </span>note
+<span class="ln"> 9 </span>  - Matrix A must be input as a 3n-2 vector in row-major dense-to-sparse ordering.
+<span class="ln">10 </span>  - Matrix V must be input as a size-n vector.
+<span class="ln">11 </span>  - Matrix y is output as a 3n-2 vector, like A.
+<span class="ln">12 </span>  - Invoke the correct version through the interface tridiag_matmul_dmat.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine tridiag_matmul_cvec_sp_xyz
+<span class="ln"> 2 </span>  Sparse multiplication of a tri-diagonal matrix by a column vector.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  A: tri-diagonal matrix
+<span class="ln"> 5 </span>  V: column vector
+<span class="ln"> 6 </span>output
+<span class="ln"> 7 </span>  y: solution vector A.V
+<span class="ln"> 8 </span>note
+<span class="ln"> 9 </span>  - Matrix A must be input as a 3n-2 vector in row-major dense-to-sparse ordering.
+<span class="ln">10 </span>  - The output y is a size-n vector representing the product.
+<span class="ln">11 </span>  - Invoke the correct version through the interface tridiag_matmul_cvec.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine tridiag_fbwd_subs_sp_xyz
+<span class="ln"> 2 </span>  Solve the tri-diagonal matrix equation Ax=b using sparse forward-backward substitution.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  A, b: tri-diagonal (sparse) matrix, vector
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  x: solution vector
+<span class="ln"> 7 </span>note
+<span class="ln"> 8 </span>  - Matrix A must be input as a 3n-2 vector in row-major dense-to-sparse ordering.
+<span class="ln"> 9 </span>  - Vector b is modified upon execution.
+<span class="ln">10 </span>  - Invoke the correct version through the interface tridiag_fbwd_subs.
+</pre>
+<p><strong>Subroutines / Functions</strong> <tt class="docutils literal">(svdcmp)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine svdcmp
+<span class="ln"> 2 </span>  Singular value decomposition.
+<span class="ln"> 3 </span>  Given a matrix A = a(m,n), this routine computes its singular value decomposition, A = U.W.Vt.
+<span class="ln"> 4 </span>  The matrix U replaces A on output. The diagonal matrix of singular values W is output
+<span class="ln"> 5 </span>  as a vector w(n), and the matrix V (not the transpose Vt) is output as v(n,n).
+<span class="ln"> 6 </span>input
+<span class="ln"> 7 </span>  a: original input matrix
+<span class="ln"> 8 </span>  m, n: dimensions of a
+<span class="ln"> 9 </span>  w, v: output placeholders
+<span class="ln">10 </span>output
+<span class="ln">11 </span>  a: transformed matrix U
+<span class="ln">12 </span>  w, v: vector of singular values diag(W) and matrix V
+<span class="ln">13 </span>note
+<span class="ln">14 </span>  - This subroutine over-writes its inputs (a,w,v), and it depends on the pythag function.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function pythag
+<span class="ln">2 </span>  Computes sqrt(a**2 + b**2) without destructive underflow or overflow.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  a, b: values
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  pythag: sqrt(a**2 + b**2)
+<span class="ln">7 </span>note
+<span class="ln">8 </span>  - Used mainly by the svdcmp subroutine.
+</pre>
+<p><strong>Subroutines / Functions</strong> <tt class="docutils literal">(fft)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function fft_freq
+<span class="ln"> 2 </span>  Construct a frequency array associated with a spatial/temporal variable.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  n: no. points
+<span class="ln"> 5 </span>  delta: sampling rate
+<span class="ln"> 6 </span>  shift: shift the zero-frequency component to the center of the spectrum (boolean)
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  freq: array of frequency values
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - The unshifted array has the following order.
+<span class="ln">11 </span>     Term #:           Frequency:
+<span class="ln">12 </span>     1 through n/2     positive [from 0 to Nyquist]
+<span class="ln">13 </span>     n/2+1 through n   negative [-Nyquist to 0)
+<span class="ln">14 </span>  - To obtain the angular frequency, use: 2*pi*freq.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine fft_shift_nd
+<span class="ln">2 </span>  Shift the zero-frequency component of a Fourier array to the center of the spectrum.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  func: complex array
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  func: zero-shifted array
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine four1
+<span class="ln"> 2 </span>  One-dimensional Fast Fourier Transform (FFT) routine.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  data: 1D array to Fourier transform
+<span class="ln"> 5 </span>  nn: no. points
+<span class="ln"> 6 </span>  isign: operation; forward (+1) or inverse (-1) transform
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  data: Fourier-transformed array
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - data must be a real array of length 2*nn representing alternating real/imaginary
+<span class="ln">11 </span>    parts of a complex array.
+<span class="ln">12 </span>  - nn must be a power of 2.
+<span class="ln">13 </span>  - if isign = -1, the result is multiplied by nn.
+<span class="ln">14 </span>  - To interface, invoke the wrapping functions fft_1d and ifft_1d.
+<span class="ln">15 </span>  - Refer to: W. H. Press, S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery,
+<span class="ln">16 </span>    Numerical Recipes in Fortran 90 (Cambridge University Press, Cambridge, 2001).
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine four2
+<span class="ln"> 2 </span>  Two-dimensional Fast Fourier Transform (FFT) routine.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  data: 2D matrix to Fourier transform
+<span class="ln"> 5 </span>  nn: integer array of dimensions; dim(data)
+<span class="ln"> 6 </span>  isign: operation; forward (+1) or inverse (-1) transform
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  data: Fourier-transformed matrix
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - data must be a real array of length 2*nn(1)*nn(2) representing alternating
+<span class="ln">11 </span>    real/imaginary parts of a complex matrix.
+<span class="ln">12 </span>  - All elements of nn must be a power of 2.
+<span class="ln">13 </span>  - if isign = -1, the result is multiplied by nn(1)*nn(2).
+<span class="ln">14 </span>  - To interface, invoke the wrapping functions fft_2d and ifft_2d.
+<span class="ln">15 </span>  - Refer to: W. H. Press, S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery,
+<span class="ln">16 </span>    Numerical Recipes in Fortran 90 (Cambridge University Press, Cambridge, 2001).
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function fft_nd
+<span class="ln"> 2 </span>  n-dimensional Fast Fourier Transform.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  func: matrix to Fourier transform
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  ft_func: Fourier-transformed matrix
+<span class="ln"> 7 </span>note:
+<span class="ln"> 8 </span>  - Every dimension of func must be a power of 2.
+<span class="ln"> 9 </span>  - The result is unshifted in frequency space.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function ifft_nd
+<span class="ln"> 2 </span>  n-dimensional Inverse Fast Fourier Transform.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  func: matrix to inverse Fourier transform
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  ift_func: inverse Fourier-transformed matrix
+<span class="ln"> 7 </span>note:
+<span class="ln"> 8 </span>  - Every dimension of func must be a power of 2.
+<span class="ln"> 9 </span>  - The result is unshifted in frequency space.
+<span class="ln">10 </span>  - The factor of size(func) arising in four1/2 is divided out.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function real_stagger_complex_nd
+<span class="ln"> 2 </span>  Staggers a complex array into alternating real/imaginary parts.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  g: complex array
+<span class="ln"> 5 </span>  n: no. points
+<span class="ln"> 6 </span>output
+<span class="ln"> 7 </span>  f: real array of staggered values
+<span class="ln"> 8 </span>note
+<span class="ln"> 9 </span>  - Odd indices: Re(g), Even: Im(g) elements.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function complex_stagger_real_nd
+<span class="ln"> 2 </span>  Staggers elements of a real array into a complex array.
+<span class="ln"> 3 </span>  Inverse operation performed by real_stagger_complex_nd.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  f: real array
+<span class="ln"> 6 </span>  n: half no. points; length(f) = 2*n
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  g: complex array of staggered values
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - For a natural number j, g(j) = f(2*j-1) + i*f(2*j).
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine zero_pad_signal_x1d
+<span class="ln"> 2 </span>  Zero-pads a 1D array, extending its length to a specified size.
+<span class="ln"> 3 </span>  The corresponding time array is also extended but its step size is preserved.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  x: time data
+<span class="ln"> 6 </span>  f: signal data
+<span class="ln"> 7 </span>  n: new size after padding
+<span class="ln"> 8 </span>  dx: time step size
+<span class="ln"> 9 </span>output:
+<span class="ln">10 </span>  x, f: zero-padded arrays
+<span class="ln">11 </span>note
+<span class="ln">12 </span>  - The step size dx is recalculated after extending x, though it should not change.
+<span class="ln">13 </span>  - This subroutine is primarily used if the signal is to be Fourier transformed
+<span class="ln">14 </span>    but its length is not a power of 2 (see function next_pow2).
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>logical function is_pow2
+<span class="ln">2 </span>  Test if an integer is a power of 2.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n: integer
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>integer function next_pow2
+<span class="ln">2 </span>  Returns the nearest power of 2.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n: target integer
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(deriv/grad)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine deriv_x1d
+<span class="ln">2 </span>  Compute the numerical derivative of an array using a five-point stencil.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  f: input function
+<span class="ln">5 </span>  dx: grid step size
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  df: derivative array
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine deriv_x2d
+<span class="ln"> 2 </span>  Compute the numerical derivative of a matrix along a specified axis using a five-point stencil.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  f: input matrix
+<span class="ln"> 5 </span>  dr: grid step size
+<span class="ln"> 6 </span>  ax: differentiation axis (index)
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  df: derivative matrix
+<span class="ln"> 9 </span>note:
+<span class="ln">10 </span>  - For ax = 1 (ax = 2), the difference along rows (columns) will be calculated.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function grad_x1d
+<span class="ln">2 </span>  Compute the one-dimensional gradient of a function.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  f: input function
+<span class="ln">5 </span>  del: grid step size
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  gradf: gradient of the input function
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function grad_x2d
+<span class="ln"> 2 </span>  Compute the gradient of a function along a specified axis.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  f: input function
+<span class="ln"> 5 </span>  del: grid step size
+<span class="ln"> 6 </span>  ax: differentiation axis (index)
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  gradf: gradient of the input function
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - For ax = 1 (ax = 2), the difference along rows (columns) will be calculated.
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(diff/simint/trapz/phase_unwrap)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>function diff
+<span class="ln">2 </span>  Compute the discrete difference between adjacent array elements.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  x: input array
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  dx: difference array
+<span class="ln">7 </span>note
+<span class="ln">8 </span>  - The length of dx is size(x)-1.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function simint
+<span class="ln"> 2 </span>  Cumulative numerical integration using a modified Simpson's Rule.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  y: real array to be integrated
+<span class="ln"> 5 </span>  y0: initial value
+<span class="ln"> 6 </span>  dx: spatial grid step size
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  inty: integral of y(x)
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - Refer to: L. V. Blake, U.S. NRL Memorandum Report 2231 (1971), titled:
+<span class="ln">11 </span>    &quot;A Modified Simpson's Rule and Fortran Subroutine for Cumulative Integration
+<span class="ln">12 </span>    of a Function Defined by Data Points&quot;
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function trapz_x1d
+<span class="ln">2 </span>  Numerical integration of an array using the trapezoidal formula.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  f: array to integrate
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  s: total integral of f
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function trapz_x2d_part
+<span class="ln"> 2 </span>  Numerical integration of a matrix using the trapezoidal formula.
+<span class="ln"> 3 </span>  Integrates along a particular axis.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  f: matrix to integrate
+<span class="ln"> 6 </span>  ax: integration axis (index)
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  s: numerical integral of f along ax
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - For ax = 1 (ax = 2), the sum along rows (columns) will be calculated.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function trapz_x2d_full
+<span class="ln">2 </span>  Numerical integration of a matrix using the trapezoidal formula.
+<span class="ln">3 </span>  Integrates over all rows and columns.
+<span class="ln">4 </span>input
+<span class="ln">5 </span>  f: matrix to integrate
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  s: total integral of f
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine phase_unwrap_nd
+<span class="ln">2 </span>  Unwrap 2-pi phase jumps arising from the arctangent function (atan2).
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  f: input phase array/matrix
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  f: phase-unwrapped array/matrix
+</pre>
+<p><strong>Subroutines / Functions</strong> <tt class="docutils literal">(etc)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine bcuint_x
+<span class="ln"> 2 </span>  Bicubic interpolation within a Cartesian mesh.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  y, y1, y2, y12: function, gradients, and cross derivative at the four grid
+<span class="ln"> 5 </span>                  points of a rectangular cell (numbered ccw from lower left)
+<span class="ln"> 6 </span>  x1l, x2l: lower-bound points on the coarse grid closest to the interpolation
+<span class="ln"> 7 </span>            point in the x1- and x2-direction
+<span class="ln"> 8 </span>  x1, x2: interpolation point coordinates
+<span class="ln"> 9 </span>  dx: coarse grid step sizes
+<span class="ln">10 </span>output
+<span class="ln">11 </span>  ansy: interpolated function value
+<span class="ln">12 </span>  ansy1, ansy2: interpolated gradient values
+<span class="ln">13 </span>note
+<span class="ln">14 </span>  - This routine performs the same task as bcuint_r_old, though it is slightly more optimized.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine bcuint_r_old
+<span class="ln"> 2 </span>  Bicubic interpolation within a Cartesian mesh. Deprecated version.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  y, y1, y2, y12: function, gradients, and cross derivative at the four grid
+<span class="ln"> 5 </span>                  points of a rectangular cell (numbered ccw from lower left)
+<span class="ln"> 6 </span>  x1l, x1u,...: lower/upper coordinates in the x1- and x2-direction
+<span class="ln"> 7 </span>  x1, x2: interpolation point coordinates
+<span class="ln"> 8 </span>output
+<span class="ln"> 9 </span>  ansy: interpolated function value
+<span class="ln">10 </span>  ansy1, ansy2: interpolated gradient values
+<span class="ln">11 </span>note
+<span class="ln">12 </span>  - This routine calls bcucof for the interpolation coefficients.
+<span class="ln">13 </span>  - Refer to: W. H. Press, S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery,
+<span class="ln">14 </span>    Numerical Recipes in Fortran 90 (Cambridge University Press, Cambridge, 2001).
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine bcucof
+<span class="ln">2 </span>  Coefficients for bicubic interpolation.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  y, y1, y2, y12: see description for bcuint_r_old
+<span class="ln">5 </span>  d1, d2: grid cell length in the x1- and x2-direction
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  c: table of coefficients used by the routine bcuint_r_old for bicubic interpolation
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>recursive function LegendrePoly
+<span class="ln"> 2 </span>  Evaluate the n-th degree Legendre polynomial at the point x.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  n, x: polynomial degree (&gt;= 0) and evaluation point
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  r: P_n(x)
+<span class="ln"> 7 </span>note
+<span class="ln"> 8 </span>  - The Legendre polynomials are defined by the recursion relation:
+<span class="ln"> 9 </span>  P_0(x) = 1.0, P_1(x) = x, and (n+1)*P_n+1(x) = (2n+1)*x*P_n(x) - n*P_n-1(x).
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function LegendrePolySeq
+<span class="ln"> 2 </span>  Generate a sequence of Legendre polynomials evaluated at the point x.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  n, x: polynomial degree (&gt;= 2) and evaluation point
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  s: n-dimensional array of Legendre polynomials, [P_0(x),...,P_n-1(x)]
+<span class="ln"> 7 </span>note
+<span class="ln"> 8 </span>  - The first element of the sequence is P_0(x) = 1.0, and the last element
+<span class="ln"> 9 </span>  is the (n-1)th degree Legendre polynomial.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>pure recursive function factorial
+<span class="ln">2 </span>  Evaluate n-factorial.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n: integer
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  r: n!
+<span class="ln">7 </span>note
+<span class="ln">8 </span>  - Accurate for n &lt;= 33.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine cache_factorial
+<span class="ln">2 </span>  Cache the first 33 factorials.
+<span class="ln">3 </span>input / output
+<span class="ln">4 </span>  r: length(33) integer(16) array
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function winHann
+<span class="ln">2 </span>  Evaluates the Hanning window function.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  t, tau: current/total time
+<span class="ln">5 </span>note
+<span class="ln">6 </span>  - Used in eigenstate distillation.
+</pre>
+</div>
+<div class="section" id="quantum-mechanics-quantum-f08">
+<h1>Quantum mechanics <tt class="docutils literal">(quantum.f08)</tt></h1>
+<p><strong>Classes</strong></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type SchrodingerWavefunction2D
+<span class="ln"> 2 </span>  Schrodinger 2D Wavefunction class
+<span class="ln"> 3 </span>variables
+<span class="ln"> 4 </span>  psi: wavefunction data
+<span class="ln"> 5 </span>  grad_psi: wavefunction gradient
+<span class="ln"> 6 </span>  phase: wavefunction phase
+<span class="ln"> 7 </span>  norm: normalization value
+<span class="ln"> 8 </span>  energy: Hamiltonian expectation value
+<span class="ln"> 9 </span>variables for propagation
+<span class="ln">10 </span>  D2(x,y), M2(x,y): sparse Crank-Nicolson-Numerov (CNN) 2nd derivative matrices
+<span class="ln">11 </span>  stab(x,y): row/column population table for sparse tri-diagonal matrices
+<span class="ln">12 </span>procedures
+<span class="ln">13 </span>  init_vars =&gt; psi2d_initialize_vars: initialize the wavefunction object and its data arrays
+<span class="ln">14 </span>  init_form =&gt; psi2d_initialize_form: generate a random wavefunction of definite parity
+<span class="ln">15 </span>  make_cnn_mats =&gt; psi2d_make_cnn_matrices: initialize the sparse Crank-Nicolson-Numerov derivative matrices
+<span class="ln">16 </span>  propagate_fft =&gt; psi2d_dt_propagate_fft: advance the wavefunction by dt using the split-operator method
+<span class="ln">17 </span>  propagate_cnn =&gt; psi2d_dt_propagate_cnn: advance the wavefunction by dt using the Crank-Nicolson-Numerov method
+<span class="ln">18 </span>  destroy =&gt; psi2d_destructor: object destructor
+<span class="ln">19 </span>note
+<span class="ln">20 </span>  - The variable dimensions are:
+<span class="ln">21 </span>    psi, phase: (nx,ny)
+<span class="ln">22 </span>    grad_psi: (nx,ny,2)
+<span class="ln">23 </span>    norm, energy: (1,nt)
+<span class="ln">24 </span>    D2(x,y), M2(x,y): (1,3*n(x,y)-2)
+<span class="ln">25 </span>    stab(x,y): (3*n(x,y)-2,2)
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type SchrodingerWavefunction1D
+<span class="ln"> 2 </span>  Schrodinger 1D Wavefunction class
+<span class="ln"> 3 </span>variables, variables for propagation
+<span class="ln"> 4 </span>  See 2D Wavefunction class
+<span class="ln"> 5 </span>procedures
+<span class="ln"> 6 </span>  init_vars =&gt; psi1d_initialize_vars: initialize the wavefunction object and its data arrays
+<span class="ln"> 7 </span>  init_form =&gt; psi1d_initialize_form: generate a random wavefunction of definite parity
+<span class="ln"> 8 </span>  make_cnn_mats =&gt; psi1d_make_cnn_matrices: initialize the sparse Crank-Nicolson-Numerov derivative matrices
+<span class="ln"> 9 </span>  propagate_fft =&gt; psi1d_dt_propagate_fft: advance the wavefunction by dt using the split-operator method
+<span class="ln">10 </span>  propagate_cnn =&gt; psi1d_dt_propagate_cnn: advance the wavefunction by dt using the Crank-Nicolson-Numerov method
+<span class="ln">11 </span>  destroy =&gt; psi1d_destructor: object destructor
+<span class="ln">12 </span>note
+<span class="ln">13 </span>  - The variable dimensions are:
+<span class="ln">14 </span>    psi, grad_psi, phase: (1,nx)
+<span class="ln">15 </span>    norm, energy: (1,nt)
+<span class="ln">16 </span>    D2x, M2x: (1,3*nx-2)
+<span class="ln">17 </span>    stab: (3*nx-2,2)
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type SchrodingerWavefunction1DR
+<span class="ln"> 2 </span>  Schrodinger 1D Radial Wavefunction class
+<span class="ln"> 3 </span>variables
+<span class="ln"> 4 </span>  phi: matrix of radial functions
+<span class="ln"> 5 </span>  V0: atomic potential
+<span class="ln"> 6 </span>  dV0_dr: radial derivative of V0
+<span class="ln"> 7 </span>  norm: normalization value
+<span class="ln"> 8 </span>  energy: Hamiltonian expectation value
+<span class="ln"> 9 </span>  Z, m: nuclear charge, magnetic quantum number
+<span class="ln">10 </span>variables for propagation
+<span class="ln">11 </span>  Va: absorbing potential
+<span class="ln">12 </span>  D1r, D2r: sparse Crank-Nicolson derivative matrices
+<span class="ln">13 </span>  M1r, M2r: sparse Muller matrices
+<span class="ln">14 </span>  D211, M211: upper-element matrix corrections for l=m=0
+<span class="ln">15 </span>  stab: row/column population table for sparse tri-diagonal matrices
+<span class="ln">16 </span>  clm: orbital angular momentum matrix elements
+<span class="ln">17 </span>procedures
+<span class="ln">18 </span>  init_vars =&gt; psi1dr_initialize_vars: initialize the wavefunction object and its data arrays
+<span class="ln">19 </span>  init_prop =&gt; psi1dr_initialize_propagators: initialize all propagation matrices
+<span class="ln">20 </span>  init_form =&gt; psi1dr_initialize_form: generate a random initial wavefunction
+<span class="ln">21 </span>  propagate =&gt; psi1dr_dt_propagate_free, psi1dr_dt_propagate_full: advance the wavefunction by dt
+<span class="ln">22 </span>  prep_atom =&gt; psi1dr_prepare_atomic_state: prepare the wavefunction in a bound atomic eigenstate
+<span class="ln">23 </span>  destroy =&gt; psi1dr_destructor: object destructor
+<span class="ln">24 </span>note
+<span class="ln">25 </span>  - The variable dimensions are:
+<span class="ln">26 </span>    phi, V0, dV0_dr: (l_max+1,nr)
+<span class="ln">27 </span>    norm, energy: (1,nt)
+<span class="ln">28 </span>    D1/2r, M1/2r: (1,3*nr-2)
+<span class="ln">29 </span>    stab: (3*nr-2,2)
+<span class="ln">30 </span>    clm: (1,l_max)
+<span class="ln">31 </span>    Va: (1,nr)
+<span class="ln">32 </span>  - The magnetic quantum number (m) is fixed by the initial state.
+<span class="ln">33 </span>  - The absorbing potential (Va) must be initialized externally.
+<span class="ln">34 </span>  - The prep_atom subroutine works via Imaginary Time Propagation (ITP), it can only produce states
+<span class="ln">35 </span>    for which n=l+1, where (n,l) are the principal and angular momentum quantum numbers, respectively.
+<span class="ln">36 </span>    For the general case, use the Eigenstate Distillation Method (EDM) as described in:
+<span class="ln">37 </span>    D. Bauer, Computational Strong-Field Quantum Dynamics, Chap. II, Sec. 2.2.5.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type tSURFF2D
+<span class="ln"> 2 </span>  Time-dependent surface-flux method (2D) class
+<span class="ln"> 3 </span>variables
+<span class="ln"> 4 </span>  p_dist: probability amplitude of the photo-electron momentum distribution
+<span class="ln"> 5 </span>  kx, ky: momentum distribution bins
+<span class="ln"> 6 </span>  xl, yl: discrete surface integration points
+<span class="ln"> 7 </span>  ixl, iyl: lower-bound coordinate grid indices
+<span class="ln"> 8 </span>  interp: wavefunction interpolation method
+<span class="ln"> 9 </span>    (nn: nearest-neighbor, b3: bicubic)
+<span class="ln">10 </span>  R0, dphi: surface radius, azimuthal angle step-size
+<span class="ln">11 </span>  dti, iti: integration time period, time-step period
+<span class="ln">12 </span>  Ns: no. surface points
+<span class="ln">13 </span>  nk: no. distribution bins
+<span class="ln">14 </span>  k(x,y)_lim: distribution extents
+<span class="ln">15 </span>  enable: toggle tSURFF calculation
+<span class="ln">16 </span>procedures
+<span class="ln">17 </span>  init =&gt; tSURFF2D_initialize: initialize the tSURFF2D object and its data arrays
+<span class="ln">18 </span>  dt_step =&gt; tSURFF2D_dt_step: dti-surface-integrate the probability amplitude
+<span class="ln">19 </span>  destroy =&gt; tSURFF2D_destructor: object destructor
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>type pconst_mks
+<span class="ln">2 </span>  Fundamental physical constants, meter-kilogram-second (MKS) base units.
+<span class="ln">3 </span>  NIST CODATA 2018 recommended values.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>type pconst_cgs
+<span class="ln">2 </span>  Fundamental physical constants, centimeter-gram-second (CGS) base units.
+<span class="ln">3 </span>  NIST CODATA 2018 recommended values.
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(initialize_vars)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi1d_initialize_vars
+<span class="ln">2 </span>  Initialize a 1D wavefunction object.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 1D wavefunction class object
+<span class="ln">5 </span>  nx, nt: no. spatial/temporal grid points
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi1dr_initialize_vars
+<span class="ln">2 </span>  Initialize a radial 1D wavefunction object.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln">5 </span>  nr, nt: no. spatial/temporal grid points
+<span class="ln">6 </span>  l_max: azimuthal quantum numbers in expansion
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi2d_initialize_vars
+<span class="ln">2 </span>  Initialize a 2D wavefunction object.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 2D wavefunction class object
+<span class="ln">5 </span>  nr, nt: no. spatial/temporal grid points
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(destructors)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi1d_destructor, psi1dr_destructor, psi2d_destructor
+<span class="ln">2 </span>  Deallocates the wavefunction object.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 1D, 1DR, or 2D wavefunction class object
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine tSURFF2D_destructor
+<span class="ln">2 </span>  Deallocates the tSURFF2D object.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: tSURFF2D class object
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(initialize_form)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi1d_initialize_form
+<span class="ln">2 </span>  Create a random 1D wavefunction of definite parity.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 1D wavefunction class object
+<span class="ln">5 </span>  parity: desired eigenstate parity (+/-1)
+<span class="ln">6 </span>  dx: spatial step-size
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi1dr_initialize_form
+<span class="ln">2 </span>  Create a random 1D radial wavefunction.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln">5 </span>  dr: spatial step-size
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi2d_initialize_form
+<span class="ln">2 </span>  Create a random 2D wavefunction of definite parity.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 2D wavefunction class object
+<span class="ln">5 </span>  parity: desired eigenstate parity (+/-1)
+<span class="ln">6 </span>  dr: spatial step-size
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(make_cnn_matrices)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi1d_make_cnn_matrices
+<span class="ln">2 </span>  Create the sparse Crank-Nicolson-Numerov 2nd derivative matrices.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 1D wavefunction class object
+<span class="ln">5 </span>  nx, dx: no. spatial grid points/step-size
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  D2x, M2x: sparse 2nd derivative matrices
+<span class="ln">8 </span>  stab: table of sparse indices
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine psi2d_make_cnn_matrices
+<span class="ln">2 </span>  Create the sparse Crank-Nicolson-Numerov 2nd derivative matrices.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 2D wavefunction class object
+<span class="ln">5 </span>  nr, dr: no. spatial grid points/step-size
+<span class="ln">6 </span>output
+<span class="ln">7 </span>  D2(x,y), M2(x,y): sparse 2nd derivative matrices
+<span class="ln">8 </span>  stab(x,y): table of sparse indices
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(initialize_propagators)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi1dr_initialize_propagators
+<span class="ln"> 2 </span>  Create all propagation matrices for a 1D radial wavefunction.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln"> 5 </span>  r, dr: spatial grid/step-size
+<span class="ln"> 6 </span>output
+<span class="ln"> 7 </span>  V0, dV0_dr: atomic potential with centrifugal term
+<span class="ln"> 8 </span>  D1/2r, M1/2r: r-space derivative matrices
+<span class="ln"> 9 </span>  D211, M211: D/M2r upper-element corrections
+<span class="ln">10 </span>  stab: table of sparse indices
+<span class="ln">11 </span>  clm: angle-space rotation matrix elements
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(dt_propagate)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi1d_dt_propagate_fft
+<span class="ln"> 2 </span>  Advance the Schrodinger wavefunction (psi) by dt using the split-operator method.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Schrodinger 1D wavefunction class object
+<span class="ln"> 5 </span>  T, V: kinetic and potential energy arrays of dim(1,nx)
+<span class="ln"> 6 </span>  dx, dt: spatial/temporal step-size
+<span class="ln"> 7 </span>  j: imaginary time constant
+<span class="ln"> 8 </span>output
+<span class="ln"> 9 </span>  psi: updated wavefunction; psi(t+dt)
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - Assumes V = V(x), time-independent.
+<span class="ln">12 </span>  - The potential is generally complex.
+<span class="ln">13 </span>  - The wavefunction is over-written.
+<span class="ln">14 </span>  - Pass j = -i for Imaginary Time Propagation (ITP) and cmplx(1.0) otherwise.
+<span class="ln">15 </span>  - ITP results in non-unitary dynamics, so normalization must be enforced manually.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi1d_dt_propagate_cnn
+<span class="ln"> 2 </span>  Advance the Schrodinger wavefunction (psi) by dt using the Crank-Nicolson-Numerov method.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Schrodinger 1D wavefunction class object
+<span class="ln"> 5 </span>  V: potential energy array of dim(1,nx)
+<span class="ln"> 6 </span>  dt: temporal step-size
+<span class="ln"> 7 </span>  j: imaginary time constant
+<span class="ln"> 8 </span>output
+<span class="ln"> 9 </span>  psi: updated wavefunction; psi(t+dt)
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - Assumes V = V(x), time-independent.
+<span class="ln">12 </span>  - The potential is generally complex.
+<span class="ln">13 </span>  - The wavefunction is over-written.
+<span class="ln">14 </span>  - Pass j = -i for Imaginary Time Propagation (ITP) and cmplx(1.0) otherwise.
+<span class="ln">15 </span>  - ITP results in non-unitary dynamics, so normalization must be enforced manually.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi1dr_prepare_atomic_state
+<span class="ln"> 2 </span>  Propagate one radial eigenfunction of the Schrodinger state (phi) through imaginary time.
+<span class="ln"> 3 </span>  Used to prepare an initial atomic (l,m)-state.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln"> 6 </span>  lp: desired OAM state to distill
+<span class="ln"> 7 </span>  ntau: no. relaxation time-steps
+<span class="ln"> 8 </span>  dr, dt: spatial/temporal step-size
+<span class="ln"> 9 </span>  pure: logical, kill every (l,m) component except lp
+<span class="ln">10 </span>output
+<span class="ln">11 </span>  phi: distilled atomic wavefunction
+<span class="ln">12 </span>note
+<span class="ln">13 </span>  - The wavefunction is over-written.
+<span class="ln">14 </span>  - ITP renormalization is performed in this routine.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi1dr_dt_propagate_free
+<span class="ln"> 2 </span>  Advance the radial eigenfunctions of the Schrodinger state (phi) by dt.
+<span class="ln"> 3 </span>  Atomic potential only; No external electromagnetic fields.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln"> 6 </span>  dt: temporal step-size
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  phi: updated wavefunction; phi(t+dt)
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - The wavefunction is over-written.
+<span class="ln">11 </span>  - The complex absorbing potential is used.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi1dr_dt_propagate_full
+<span class="ln"> 2 </span>  Advance the radial eigenfunctions of the Schrodinger state (phi) by dt.
+<span class="ln"> 3 </span>  Time-propagation with a linearly-polarized field.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln"> 6 </span>  A: instantaneous field vector potential
+<span class="ln"> 7 </span>  r: spatial grid
+<span class="ln"> 8 </span>  dt: temporal step-size
+<span class="ln"> 9 </span>output
+<span class="ln">10 </span>  phi: updated wavefunction; phi(t+dt)
+<span class="ln">11 </span>note
+<span class="ln">12 </span>  - The wavefunction is over-written.
+<span class="ln">13 </span>  - The intermediate r-space transformation calls on the _free propagation routine.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi2d_dt_propagate_fft
+<span class="ln"> 2 </span>  Advance the Schrodinger wavefunction (psi) by dt using the split-operator method.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Schrodinger 2D wavefunction class object
+<span class="ln"> 5 </span>  T, V: kinetic and potential energy arrays of dim(nr(1),nr(2))
+<span class="ln"> 6 </span>  dr, dt: spatial/temporal step-size
+<span class="ln"> 7 </span>  j: imaginary time constant
+<span class="ln"> 8 </span>output
+<span class="ln"> 9 </span>  psi: updated wavefunction; psi(t+dt)
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - Assumes V = V(x,y), time-independent.
+<span class="ln">12 </span>  - The potential is generally complex.
+<span class="ln">13 </span>  - The wavefunction is over-written.
+<span class="ln">14 </span>  - Pass j = -i for Imaginary Time Propagation (ITP) and cmplx(1.0) otherwise.
+<span class="ln">15 </span>  - ITP results in non-unitary dynamics, so normalization must be enforced manually.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine psi2d_dt_propagate_cnn
+<span class="ln"> 2 </span>  Advance the Schrodinger wavefunction (psi) by dt using the Crank-Nicolson-Numerov method.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Schrodinger 2D wavefunction class object
+<span class="ln"> 5 </span>  V: potential energy array of dim(nr(1),nr(2))
+<span class="ln"> 6 </span>  dt: temporal step-size
+<span class="ln"> 7 </span>  j: imaginary time constant
+<span class="ln"> 8 </span>output
+<span class="ln"> 9 </span>  psi: updated wavefunction; psi(t+dt)
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - Assumes V = V(x,y), time-independent.
+<span class="ln">12 </span>  - The potential is generally complex.
+<span class="ln">13 </span>  - The wavefunction is over-written.
+<span class="ln">14 </span>  - Pass j = -i for Imaginary Time Propagation (ITP) and cmplx(1.0) otherwise.
+<span class="ln">15 </span>  - ITP results in non-unitary dynamics, so normalization must be enforced manually.
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(expectE)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function expectE_ND_fft
+<span class="ln"> 2 </span>  Calculates the energy expectation value given the ND wavefunction.
+<span class="ln"> 3 </span>  FFT version.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: Schrodinger ND wavefunction class object
+<span class="ln"> 6 </span>  dr, dp: space and momentum step sizes
+<span class="ln"> 7 </span>  T, V: kinetic and potential energy arrays of dim(nr)
+<span class="ln"> 8 </span>note
+<span class="ln"> 9 </span>  - The input potential must be real.
+<span class="ln">10 </span>  - Every dimension of psi must be a power of 2.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function expectE_ND_cnn
+<span class="ln"> 2 </span>  Calculates the energy expectation value given the ND wavefunction.
+<span class="ln"> 3 </span>  Crank-Nicolson version.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: Schrodinger ND wavefunction class object
+<span class="ln"> 6 </span>  V: potential energy array of dim(nr)
+<span class="ln"> 7 </span>  dr: spatial step-size
+<span class="ln"> 8 </span>note
+<span class="ln"> 9 </span>  - The input potential must be real.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function expectE_1DR
+<span class="ln">2 </span>  Calculates the energy expectation value given the 1D radial wavefunction.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln">5 </span>  dr: spatial step-size
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(photoe_spectrum_winop)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine photoe_spectrum_winop_1D
+<span class="ln"> 2 </span>  Calculates the photo-electron spectrum using
+<span class="ln"> 3 </span>  the nth-order energy window operator method.
+<span class="ln"> 4 </span>  1D Cartesian wavefunction.
+<span class="ln"> 5 </span>input
+<span class="ln"> 6 </span>  psi: 1D wavefunction
+<span class="ln"> 7 </span>  V0: atomic potential
+<span class="ln"> 8 </span>  E: energy bins
+<span class="ln"> 9 </span>  dx: spatial step-size
+<span class="ln">10 </span>  n: window order
+<span class="ln">11 </span>output
+<span class="ln">12 </span>  W: spectrum
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine photoe_spectrum_winop_1DR
+<span class="ln"> 2 </span>  Calculates the photo-electron spectrum using
+<span class="ln"> 3 </span>  the nth-order energy window operator method.
+<span class="ln"> 4 </span>  1D Radial wavefunction.
+<span class="ln"> 5 </span>input
+<span class="ln"> 6 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln"> 7 </span>  E: energy bins
+<span class="ln"> 8 </span>  dr: spatial step-size
+<span class="ln"> 9 </span>  n: window order
+<span class="ln">10 </span>output
+<span class="ln">11 </span>  W: spectrum
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(tSURFF2D)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine tSURFF2D_initialize
+<span class="ln"> 2 </span>  Initialize the tSURFF2D object and its data arrays.
+<span class="ln"> 3 </span>  The user must externally supply values for the following class parameters:
+<span class="ln"> 4 </span>    enable, interp, dti, Ns, R0, k(x,y)_lim, nk
+<span class="ln"> 5 </span>input
+<span class="ln"> 6 </span>  S: tSURFF2D class object
+<span class="ln"> 7 </span>  x, y: spatial mesh arrays
+<span class="ln"> 8 </span>  dt: global time-step
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - The spatial indices (ixl,iyl) correspond to the nearest upper-left point
+<span class="ln">11 </span>    in the underlying spatial mesh (spanned by inputs x &amp; y).
+<span class="ln">12 </span>  - The integration time-step period (iti) is an integer, given by the
+<span class="ln">13 </span>    nearest whole ratio of dti to the global time-step.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine tSURFF2D_dt_step
+<span class="ln"> 2 </span>  Perform a surface-flux integration, advancing in time by dti.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  S: tSURFF2D class object
+<span class="ln"> 5 </span>  wavefn: Schrodinger 2D wavefunction class object
+<span class="ln"> 6 </span>  A, C: two-component vector potential and excursion at the current time (t)
+<span class="ln"> 7 </span>  x, y: spatial mesh arrays
+<span class="ln"> 8 </span>  t: the current time
+<span class="ln"> 9 </span>output
+<span class="ln">10 </span>  p_dist: dti-advanced momentum probability amplitude
+<span class="ln">11 </span>note
+<span class="ln">12 </span>  - A simpler 1D version of the underlying theory is developed in:
+<span class="ln">13 </span>      D. Bauer, Computational Strong-Field Quantum Dynamics.
+<span class="ln">14 </span>    See also:
+<span class="ln">15 </span>      V. Mosert and D. Bauer, &quot;Photoelectron spectra with Qprop and t-SURFF&quot;,
+<span class="ln">16 </span>        Comput. Phys. Commun. 207, 452 (2016).
+<span class="ln">17 </span>  - The wavefunction at the current time-step is interpolated via either:
+<span class="ln">18 </span>      1. nearest-neighbor (nn), approximating psi(R0,t) by the value at the nearest upper-left grid point.
+<span class="ln">19 </span>    or
+<span class="ln">20 </span>      2. bicubic (b3), interpolating the 4 surrounding mesh points to compute psi(R0,t).
+<span class="ln">21 </span>    Generally, b3 is far more computationally demanding.
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(harmonic_generation)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine harmonic_generation_1DR
+<span class="ln"> 2 </span>  Calculates the harmonic generation intensity at the current time.
+<span class="ln"> 3 </span>  1D Radial wavefunction.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: Schrodinger 1DR wavefunction class object
+<span class="ln"> 6 </span>  Et: instantaneous electric field strength
+<span class="ln"> 7 </span>  dr: spatial step-size
+<span class="ln"> 8 </span>output
+<span class="ln"> 9 </span>  S: harmonic generation intensity
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - See D. Bauer, Computational Strong-Field Quantum Dynamics, Chap. II, Sec. 3.
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(bohm)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine calc_bohm_velocity
+<span class="ln"> 2 </span>  Compute the Bohmian velocity at the current time using the probability current.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  nx, nt, k: no. spatial/temporal grid points and current time-step index
+<span class="ln"> 5 </span>  dx: spatial step-size
+<span class="ln"> 6 </span>  psi: wavefunction, dim(nt,nx)
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  bv: Bohmian velocity; v(x,t) = J(x,t)/rho(x,t) where rho(x,t) = abs(psi(x,t))^2
+<span class="ln"> 9 </span>  Jxt: probability current; J(x,t)
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - Outputs have dim(nt,nx).
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine calc_bohm_velocity_from_phase
+<span class="ln"> 2 </span>  Compute the Bohmian velocity at the current time using the phase of the wavefunction, S(x,t).
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  nx, nt, k: no. spatial/temporal grid points and current time-step index
+<span class="ln"> 5 </span>  dx: spatial step-size
+<span class="ln"> 6 </span>  psi: wavefunction, dim(nt,nx)
+<span class="ln"> 7 </span>output
+<span class="ln"> 8 </span>  bv: Bohmian velocity; v(x,t) = grad(S(x,t))
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - This routine is NOT recommended over calc_bohm_velocity due to the phase-unwrapping problem.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine calc_bohm_trajectories
+<span class="ln"> 2 </span>  Obtain Bohmian trajectories from pre-computed velocity field information.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  nx, nt: no. spatial/temporal grid points
+<span class="ln"> 5 </span>  dt: temporal step-size
+<span class="ln"> 6 </span>  x: spatial grid
+<span class="ln"> 7 </span>  bv: Bohm velocity array, dim(nt,nx)
+<span class="ln"> 8 </span>output
+<span class="ln"> 9 </span>  bx: Bohmian trajectory array
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - Each trajectory is initialized by the first row of bv, i.e., v(x,t=0).
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(misc)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine chk_continuity_eqn
+<span class="ln">2 </span>  Evaluate the continuity equation for all time.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  nx, nt: no. spatial/temporal grid points and current time-step index
+<span class="ln">5 </span>  dx, dt: spatial/temporal step-size
+<span class="ln">6 </span>  psi, Jxt: wavefunction and probability current, dim(nt,nx)
+<span class="ln">7 </span>output
+<span class="ln">8 </span>  cty: evaluated continuity equation
+</pre>
+<p><strong>Functions</strong> <tt class="docutils literal">(misc)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>function E_hydrogen
+<span class="ln">2 </span>  Exact hydrogen energy levels in atomic units.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  n, l: principal, azimuthal quantum number
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  En: energy
+<span class="ln">7 </span>note
+<span class="ln">8 </span>  - See S. Weinberg, Quantum Theory of Fields, Vol. I, Eq. (1.1.27).
+</pre>
+</div>
+<div class="section" id="electromagnetic-field-emfm-f08">
+<h1>Electromagnetic field <tt class="docutils literal">(emfm.f08)</tt></h1>
+<p><strong>Classes</strong></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type emf
+<span class="ln"> 2 </span>  Electromagnetic Field class
+<span class="ln"> 3 </span>parameters
+<span class="ln"> 4 </span>  profile: temporal envelope (string)
+<span class="ln"> 5 </span>  E0: field amplitude
+<span class="ln"> 6 </span>  omg0: central frequency
+<span class="ln"> 7 </span>  eps: ellipticity value
+<span class="ln"> 8 </span>  ch1: linear chirp coefficient
+<span class="ln"> 9 </span>  Ncyc_rf, _pl: no. cycles rise/fall &amp; plateau
+<span class="ln">10 </span>  CEP: carrier-envelope phase
+<span class="ln">11 </span>  t_on: start time
+<span class="ln">12 </span>  t_off: end time
+<span class="ln">13 </span>  T0: period
+<span class="ln">14 </span>  Tp: total duration
+<span class="ln">15 </span>  Tpk: gaussian peak time
+<span class="ln">16 </span>  Tfwhm: gaussian intensity FWHM duration
+<span class="ln">17 </span>  it_on: start time index
+<span class="ln">18 </span>  it_off: end time index
+<span class="ln">19 </span>variables
+<span class="ln">20 </span>  Ex, Ey: electric field components
+<span class="ln">21 </span>  Ax, Ay: vector potential components
+<span class="ln">22 </span>  Cx, Cy: excursion components
+<span class="ln">23 </span>procedures
+<span class="ln">24 </span>  init_trapz: initialize field with trapezoidal pulse envelope
+<span class="ln">25 </span>  init_sine2: initialize field with sine-squared pulse envelope
+<span class="ln">26 </span>  init_gauss: initialize field with gaussian pulse envelope
+<span class="ln">27 </span>  init_gauss_l: initialize field with linearly-ramped gaussian pulse envelope
+<span class="ln">28 </span>note
+<span class="ln">29 </span>  - The available profiles are:
+<span class="ln">30 </span>      trapz-N: trapezoidal, N-cycle rise/fall; N of type float
+<span class="ln">31 </span>      sine2: sine-squared
+<span class="ln">32 </span>      gauss: gaussian
+<span class="ln">33 </span>      gauss-l: gaussian with linearly-ramped wings
+<span class="ln">34 </span>  - When creating a trapz-N pulse, the user must define:
+<span class="ln">35 </span>      E0, omg0, eps, ch1, CEP, t_on, Ncyc_rf, Ncyc_pl
+<span class="ln">36 </span>  - When creating a sine2 pulse, the user must define:
+<span class="ln">37 </span>      E0, omg0, eps, ch1, CEP, t_on, Tp
+<span class="ln">38 </span>  - When creating a gauss pulse, the user must define:
+<span class="ln">39 </span>      E0, omg0, eps, ch1, CEP, Tpk, Tfwhm
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(emf)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine emf_trapezoidal_pulse
+<span class="ln"> 2 </span>  Initialize EM-field with a 2-cycle turn-on/off trapezoidal temporal profile.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: emf class object
+<span class="ln"> 5 </span>  t: time array
+<span class="ln"> 6 </span>output
+<span class="ln"> 7 </span>  this % Ex, Ey: field components
+<span class="ln"> 8 </span>  this % Ax, Ay: vector potential components
+<span class="ln"> 9 </span>  this % Cx, Cy: excursion components
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - The amplitude is normalized by the ellipticity value.
+<span class="ln">12 </span>  - If ch1 is non-zero, the pulse will be linearly chirped.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine emf_sine_squared_pulse
+<span class="ln">2 </span>  Initialize EM-field with a sine-squared temporal profile.
+<span class="ln">3 </span>input, output
+<span class="ln">4 </span>  see emf_trapezoidal_pulse
+<span class="ln">5 </span>note
+<span class="ln">6 </span>  see emf_trapezoidal_pulse
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine emf_gaussian_pulse / emf_gaussian_l_pulse
+<span class="ln">2 </span>  Initialize EM-field with a gaussian temporal profile.
+<span class="ln">3 </span>input, output
+<span class="ln">4 </span>  see emf_trapezoidal_pulse
+<span class="ln">5 </span>note
+<span class="ln">6 </span>  - The gaussian_l envelope is linearly ramped between [2,3]*w0t where w0t = 1/e^2 radius.
+<span class="ln">7 </span>    The field parameters must accommodate these ramps in the simulation time domain.
+</pre>
+</div>
+<div class="section" id="virtual-detector-vdm-f08">
+<h1>Virtual detector <tt class="docutils literal">(vdm.f08)</tt></h1>
+<p><strong>Classes</strong></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type vdet
+<span class="ln"> 2 </span>  Virtual Detector (VD) class
+<span class="ln"> 3 </span>parameters
+<span class="ln"> 4 </span>  xl, yl: VD position coordinates
+<span class="ln"> 5 </span>  ixl, iyl: lower-bound coordinate grid indices
+<span class="ln"> 6 </span>variables
+<span class="ln"> 7 </span>  Krt: recorded momentum
+<span class="ln"> 8 </span>  Jrt: recorded probability current density
+<span class="ln"> 9 </span>  rho: recorded probability density
+<span class="ln">10 </span>  phase: recorded wavefunction phase
+<span class="ln">11 </span>procedures
+<span class="ln">12 </span>  init: initialize a virtual detector and its data arrays.
+<span class="ln">13 </span>  trigger(1/2): calculate and record the instantaneous momentum, probability current, probability density, and phase.
+<span class="ln">14 </span>note
+<span class="ln">15 </span>  - The variables Krt and Jrt have dimensions (nr,nt), where nr is the number of
+<span class="ln">16 </span>    spatial components and nt is the number of time steps; and phase and rho have dimensions (1,nt).
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type edet
+<span class="ln"> 2 </span>  End Detector (ED) class
+<span class="ln"> 3 </span>variables
+<span class="ln"> 4 </span>  nde: no. detected electrons
+<span class="ln"> 5 </span>  bfwt: bound/free weight totals
+<span class="ln"> 6 </span>  data: recorded electron information
+<span class="ln"> 7 </span>procedures
+<span class="ln"> 8 </span>  escan: record electron information
+<span class="ln"> 9 </span>note
+<span class="ln">10 </span>  - The data variable has dimensions (nde,4) (1D) or (nde,6) (2D).
+<span class="ln">11 </span>  - An ED entry contains electron trajectory:
+<span class="ln">12 </span>    (x, px, phase, weight) (1D) or (x, y, px, py, phase, weight) (2D).
+<span class="ln">13 </span>  - bfwt(1,2) = sum of (bound,free) virtual electron weights
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type particle_electron
+<span class="ln"> 2 </span>  Electron class
+<span class="ln"> 3 </span>variables
+<span class="ln"> 4 </span>  x, y: position coordinates
+<span class="ln"> 5 </span>  px, py: momentum components
+<span class="ln"> 6 </span>  weight: statistical weight
+<span class="ln"> 7 </span>  phase: accumulated trajectory phase
+<span class="ln"> 8 </span>  ix, iy: position grid indices
+<span class="ln"> 9 </span>  propagate: toggle electron dynamics
+<span class="ln">10 </span>procedures
+<span class="ln">11 </span>  apush(1/2): analytic propagation routine
+<span class="ln">12 </span>  npush: numeric propagation routine
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>type grid_electron
+<span class="ln">2 </span>  Electron Grid class
+<span class="ln">3 </span>parameters
+<span class="ln">4 </span>  x_lim, y_lim: domain boundaries
+<span class="ln">5 </span>  dr, nr: step size and no. points
+<span class="ln">6 </span>variables
+<span class="ln">7 </span>  x, y: spatial mesh arrays
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(initialize)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine vdet_initialize
+<span class="ln"> 2 </span>  Initialize a virtual detector.
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: virtual detector class object
+<span class="ln"> 5 </span>  R0: detector ring radius
+<span class="ln"> 6 </span>  Nv: total no. virtual detectors
+<span class="ln"> 7 </span>  x, y: spatial mesh arrays
+<span class="ln"> 8 </span>  n: this virtual detector number
+<span class="ln"> 9 </span>  nt: no. temporal grid points
+<span class="ln">10 </span>  sdim: dimensionality of the simulation (1/2)
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(vdet_calculate)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine vdet_calculate_current_1d
+<span class="ln"> 2 </span>  Calculate and record the instantaneous momentum, probability current, probability density, and phase for a VD.
+<span class="ln"> 3 </span>  Linear interpolation is used to obtain wavefunction quantities at the VD location.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: virtual detector class object
+<span class="ln"> 6 </span>  wavefn: Schrodinger 1D wavefunction class object
+<span class="ln"> 7 </span>  x: spatial mesh array
+<span class="ln"> 8 </span>  k: current time-step index
+<span class="ln"> 9 </span>output
+<span class="ln">10 </span>  this % Krt: instantaneous momentum
+<span class="ln">11 </span>  this % Jrt: instantaneous probability current
+<span class="ln">12 </span>  this % rho: instantaneous probability density
+<span class="ln">13 </span>  this % phase: instantaneous wavefunction phase
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine vdet_calculate_current_2d
+<span class="ln"> 2 </span>  Calculate and record the instantaneous momentum, probability current, and phase for a VD.
+<span class="ln"> 3 </span>  Bicubic interpolation is used to obtain wavefunction quantities at the VD location.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: virtual detector class object
+<span class="ln"> 6 </span>  wavefn: Schrodinger 2D wavefunction class object
+<span class="ln"> 7 </span>  IDM: interpolation data matrix
+<span class="ln"> 8 </span>  x, y: spatial mesh arrays
+<span class="ln"> 9 </span>  nr: no. spatial grid points
+<span class="ln">10 </span>  k: current time-step index
+<span class="ln">11 </span>output
+<span class="ln">12 </span>  this % Krt, Jrt: instantaneous momentum and probability current
+<span class="ln">13 </span>  this % phase: instantaneous wavefunction phase at the VD position
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine vdet_calculate_current_from_phase
+<span class="ln"> 2 </span>  Calculate and record the instantaneous momentum and probability current for a virtual detector
+<span class="ln"> 3 </span>  using the phase of the wavefunction.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: virtual detector class object
+<span class="ln"> 6 </span>  psi: wavefunction
+<span class="ln"> 7 </span>  dr: spatial step size
+<span class="ln"> 8 </span>  nr: no. spatial grid points
+<span class="ln"> 9 </span>  k: current time-step index
+<span class="ln">10 </span>output
+<span class="ln">11 </span>  this % Krt, Jrt: instantaneous momentum and probability current
+<span class="ln">12 </span>note
+<span class="ln">13 </span>  - This routine is NOT recommended over vdet_calculate_current
+<span class="ln">14 </span>    due to the phase-unwrapping problem.
+<span class="ln">15 </span>  - This routine is deprecated.
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(edet)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine edet_detect
+<span class="ln">2 </span>  Record electron information.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: end detector class object
+<span class="ln">5 </span>  electron: group of electron class objects
+<span class="ln">6 </span>  sdim: dimensionality of the simulation (1/2)
+<span class="ln">7 </span>output
+<span class="ln">8 </span>  data: recorded electron information
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(electron_dt_propagate)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine electron_dt_propagate_analytic_nd
+<span class="ln">2 </span>  Push an nD electron trajectory using a forward-Euler Hamiltonian integrator.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: electron class object
+<span class="ln">5 </span>  pdot: analytically pre-computed force vector
+<span class="ln">6 </span>  dt: temporal step size
+<span class="ln">7 </span>output
+<span class="ln">8 </span>  updated electron position and momenta
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine electron_dt_propagate_numeric
+<span class="ln"> 2 </span>  Push an electron using a forward-Euler Hamiltonian integrator.
+<span class="ln"> 3 </span>  Numerically differentiates a potential energy function.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  this: electron class object
+<span class="ln"> 6 </span>  V: potential energy function
+<span class="ln"> 7 </span>  x, y: spatial mesh arrays
+<span class="ln"> 8 </span>  dr, dt: spatial/temporal step size
+<span class="ln"> 9 </span>  nr: no. spatial grid points
+<span class="ln">10 </span>output
+<span class="ln">11 </span>  updated electron position and momenta
+<span class="ln">12 </span>note
+<span class="ln">13 </span>  - An electron grid (class grid_electron) should be used to deposit
+<span class="ln">14 </span>    the potential energy function and electron coordinates.
+</pre>
+</div>
+<div class="section" id="rochester-rochester-f08">
+<h1>Rochester <tt class="docutils literal">(rochester.f08)</tt></h1>
+<p><strong>Functions</strong> <tt class="docutils literal">(vroc)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>pure function Vroc
+<span class="ln">2 </span>  Evaluates the soft-core Coulomb potential.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  Z1, Z2: charge numbers
+<span class="ln">5 </span>  x, y: evaluation point
+<span class="ln">6 </span>  ac: soft core parameter
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function DVroc
+<span class="ln">2 </span>  Evaluates the partial derivative of the soft-core Coulomb potential.
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  Z1, Z2: charge numbers
+<span class="ln">5 </span>  x, y: evaluation point
+<span class="ln">6 </span>  ac: soft core parameter
+<span class="ln">7 </span>  cmp: differentiation component
+</pre>
+</div>
+<div class="section" id="optimization-optimize-f08">
+<h1>Optimization <tt class="docutils literal">(optimize.f08)</tt></h1>
+<p>Note: Compiling <tt class="docutils literal">optimize.f08</tt> with 64-bit floats (double precision) is recommended.</p>
+<p><strong>Function interfaces</strong></p>
+<p>Functions passed to optimization procedures must conform to one of the following templates.</p>
+<pre class="code literal-block">
+<span class="ln">1 </span>! scalar-&gt;scalar function
+<span class="ln">2 </span>function ssfunc(x)
+<span class="ln">3 </span>    use prec, only: num
+<span class="ln">4 </span>    implicit none
+<span class="ln">5 </span>    real(num), intent(in) :: x
+<span class="ln">6 </span>    real(num) :: ssfunc
+<span class="ln">7 </span>end function ssfunc
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>! vector-&gt;scalar function
+<span class="ln">2 </span>function vsfunc(x)
+<span class="ln">3 </span>    use prec, only: num
+<span class="ln">4 </span>    implicit none
+<span class="ln">5 </span>    real(num), intent(in) :: x(:)
+<span class="ln">6 </span>    real(num) :: vsfunc
+<span class="ln">7 </span>end function vsfunc
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>! vector-&gt;vector function
+<span class="ln">2 </span>function vvfunc(x)
+<span class="ln">3 </span>    use prec, only: num
+<span class="ln">4 </span>    implicit none
+<span class="ln">5 </span>    real(num), intent(in) :: x(:)
+<span class="ln">6 </span>    real(num) :: vvfunc(size(x))
+<span class="ln">7 </span>end function vvfunc
+</pre>
+<p><strong>Optimize-ND classes</strong></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type OptimizeND_NelderMead
+<span class="ln"> 2 </span>  Nelder-Mead N-dimensional minimization class
+<span class="ln"> 3 </span>variables
+<span class="ln"> 4 </span>  func: objective function (vector-&gt;scalar)
+<span class="ln"> 5 </span>  y, p: evolving objective function values &amp; simplex vertices
+<span class="ln"> 6 </span>  ftol: target fractional tolerance
+<span class="ln"> 7 </span>  ndim: no. independent variables
+<span class="ln"> 8 </span>  iter: iteration counter
+<span class="ln"> 9 </span>  itmax: maximum no. iterations
+<span class="ln">10 </span>  warn: toggle warning if iter exceeds itmax
+<span class="ln">11 </span>  aux(n): auxiliary matrices; store anything you'd like
+<span class="ln">12 </span>procedures (core)
+<span class="ln">13 </span>  create =&gt; create_NM: set the target function and object parameters
+<span class="ln">14 </span>  minimize =&gt; amoeba: execute the Nelder-Mead minimization routine
+<span class="ln">15 </span>  destroy =&gt; destroy_NM: object destructor
+<span class="ln">16 </span>  reset =&gt; reset_NM: zero optimization variables and iter
+<span class="ln">17 </span>procedures (support)
+<span class="ln">18 </span>  amotry =&gt; amotry_NM: simplex extrapolation tester
+<span class="ln">19 </span>note
+<span class="ln">20 </span>  - The variable dimensions are:
+<span class="ln">21 </span>      y, p: (ndim+1), (ndim+1,ndim)
+<span class="ln">22 </span>  - The ndim+1 rows of p are size(ndim) vectors identifying the simplex vertices.
+<span class="ln">23 </span>  - The elements of y equal the target function (func) evaluated at the ndim+1 vertices (rows) of p.
+<span class="ln">24 </span>  - Before calling minimize(), the user must set the initial values of (y,p).
+<span class="ln">25 </span>  - Upon completion, (y,p) will be ndim+1 new points all within ftol of a minimum,
+<span class="ln">26 </span>    and iter will equal the number of function evaluations taken.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type OptimizeND_ConjugateGradient
+<span class="ln"> 2 </span>  Conjugate-gradient N-dimensional minimization class
+<span class="ln"> 3 </span>  based on the Fletcher-Reeves-Polak-Ribiere (FRPR) algorithm
+<span class="ln"> 4 </span>variables
+<span class="ln"> 5 </span>  func, gfunc: objective function (vector-&gt;scalar) &amp; its gradient (vector-&gt;vector)
+<span class="ln"> 6 </span>  p: evolving independent vector
+<span class="ln"> 7 </span>  y, xi: objective function value and gradient vector at p
+<span class="ln"> 8 </span>  alpha: guess of line-minimization bracketing extent
+<span class="ln"> 9 </span>  ftol: target fractional tolerance
+<span class="ln">10 </span>  ndim: no. independent variables
+<span class="ln">11 </span>  iter: iteration counter
+<span class="ln">12 </span>  itmax: maximum no. iterations
+<span class="ln">13 </span>  warn: toggle warning if iter exceeds itmax
+<span class="ln">14 </span>procedures (core)
+<span class="ln">15 </span>  create =&gt; create_CG: set the target function, its gradient, and object parameters
+<span class="ln">16 </span>  minimize =&gt; frprmn: execute the FRPR conjugate-gradient minimization routine
+<span class="ln">17 </span>  destroy =&gt; destroy_CG: object destructor
+<span class="ln">18 </span>  reset =&gt; reset_CG: zero optimization variables and iter
+<span class="ln">19 </span>procedures (support)
+<span class="ln">20 </span>  linmin =&gt; linmin_CG: line-minimization subroutine
+<span class="ln">21 </span>  mnbrak =&gt; mnbrak_CG: specialized minimum bracketing
+<span class="ln">22 </span>  dbrent =&gt; dbrent_CG: Brent's derivative-based method
+<span class="ln">23 </span>note
+<span class="ln">24 </span>  - The variable dimensions are:
+<span class="ln">25 </span>      xi &amp; p: (ndim)
+<span class="ln">26 </span>  - Before calling minimize(), the user must set the initial values of (y,p).
+<span class="ln">27 </span>  - Upon completion, (y,p) will be a new function value/point within ftol of
+<span class="ln">28 </span>    a minimum, and iter will equal the number of iterations taken.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>type OptimizeND_GuidedMonteCarlo
+<span class="ln"> 2 </span>  Guided Monte Carlo N-dimensional minimization class
+<span class="ln"> 3 </span>variables
+<span class="ln"> 4 </span>  func: objective function (vector-&gt;scalar)
+<span class="ln"> 5 </span>  p: evolving independent vector
+<span class="ln"> 6 </span>  y: objective function value
+<span class="ln"> 7 </span>  mag_step, _delta: guided step and perturbation size amplitude for ea. coordinate
+<span class="ln"> 8 </span>  step: normalized guide lengths that decrease with increasing frustration
+<span class="ln"> 9 </span>  iroc: maximum no. times to &quot;rock&quot; the variables
+<span class="ln">10 </span>  ndim: no. independent variables
+<span class="ln">11 </span>  iter: iteration counter
+<span class="ln">12 </span>  itmax: maximum no. iterations
+<span class="ln">13 </span>  warn: toggle warning if iter exceeds itmax
+<span class="ln">14 </span>procedures (core)
+<span class="ln">15 </span>  create =&gt; create_GMC: set the target function and object parameters
+<span class="ln">16 </span>  minimize =&gt; gmcmn: execute the guided Monte Carlo minimization routine
+<span class="ln">17 </span>  destroy =&gt; destroy_GMC: object destructor
+<span class="ln">18 </span>  reset =&gt; zero optimization variables and iter
+<span class="ln">19 </span>note
+<span class="ln">20 </span>  - The variable dimensions are:
+<span class="ln">21 </span>      p, mag_step, mag_delta: (ndim)
+<span class="ln">22 </span>  - Before calling minimize(), the user must set the initial values of (y,p).
+<span class="ln">23 </span>  - This algorithm is due to:
+<span class="ln">24 </span>      R. Delgoda and J. D. Pulfer, &quot;A Guided Monte Carlo Search Algorithm for Global
+<span class="ln">25 </span>      Optimization of Multidimensional Functions&quot;, J. Chem. Inf. Comput. Sci. vol. 38, pp. 1087-1095 (1998).
+<span class="ln">26 </span>    (The terminology used throughout is based on this paper.)
+</pre>
+<p><strong>Subroutines</strong> <tt class="docutils literal">(initialize)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine create_NM
+<span class="ln"> 2 </span>  Set the target function &amp; parameters for a Nelder-Mead minimization task
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Nelder-Mead class object
+<span class="ln"> 5 </span>  func: user-defined vector-&gt;scalar function (vsfunc template)
+<span class="ln"> 6 </span>  ndim: no. independent variables
+<span class="ln"> 7 </span>  ftol: desired fractional tolerance
+<span class="ln"> 8 </span>  itmax: maximum no. iterations
+<span class="ln"> 9 </span>  warn: toggle warning if iter exceeds itmax
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - Default values:
+<span class="ln">12 </span>      ftol=1.d-6 if 0. is passed.
+<span class="ln">13 </span>      itmax=5000 if -1 is passed.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine create_CG
+<span class="ln"> 2 </span>  Set the target function &amp; parameters for an FRPR conjugate-gradient minimization task
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: FRPR conjugate-gradient class object
+<span class="ln"> 5 </span>  func: user-defined vector-&gt;scalar function (vsfunc template)
+<span class="ln"> 6 </span>  gfunc: the vector-&gt;vector gradient of func (vvfunc template)
+<span class="ln"> 7 </span>  alpha: guess of line-minimization bracketing extent
+<span class="ln"> 8 </span>        (could be on the order of the abscissa length-scale)
+<span class="ln"> 9 </span>  ndim: no. independent variables
+<span class="ln">10 </span>  ftol: desired fractional tolerance
+<span class="ln">11 </span>  itmax: maximum no. iterations
+<span class="ln">12 </span>  warn: toggle warning if iter exceeds itmax
+<span class="ln">13 </span>note
+<span class="ln">14 </span>  - Default values:
+<span class="ln">15 </span>      ftol=1.d-6 if 0. is passed.
+<span class="ln">16 </span>      itmax=200 if -1 is passed.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine create_GMC
+<span class="ln"> 2 </span>  Set the target function &amp; parameters for a Guided Monte Carlo minimization task
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Guided Monte Carlo class object
+<span class="ln"> 5 </span>  func: user-defined vector-&gt;scalar function (vsfunc template)
+<span class="ln"> 6 </span>  mag_step, _delta: guided step and perturbation size amplitude for ea. coordinate
+<span class="ln"> 7 </span>  ndim: no. independent variables
+<span class="ln"> 8 </span>  itmax: maximum no. iterations
+<span class="ln"> 9 </span>  iroc: maximum no. times to &quot;rock&quot; the variables
+<span class="ln">10 </span>  warn: toggle warning if iter exceeds itmax
+<span class="ln">11 </span>note
+<span class="ln">12 </span>  - Default values:
+<span class="ln">13 </span>      itmax=10,000 if -1 is passed
+<span class="ln">14 </span>      itmax is ignored (run to completion) if -2 is passed
+<span class="ln">15 </span>      iroc=3 if -1 is passed
+<span class="ln">16 </span>  - The values of mag_step(i) and mag_delta(i) should approximately equal the
+<span class="ln">17 </span>    characteristic scale-length associated with the coordinate p(i). For example,
+<span class="ln">18 </span>    if p(i) is an azimuthal angle, the objective function containing cos(p(i)) terms,
+<span class="ln">19 </span>    then mag_step(i)=2.*pi and mag_delta(i)=2.*pi/10 would be reasonable. (The latter
+<span class="ln">20 </span>    quantity is an order of magnitude smaller as &quot;delta&quot; is a small perturbation to p(i)
+<span class="ln">21 </span>    in the core Guided Monte Carlo procedure.)
+</pre>
+<p><strong>Procedures</strong> <tt class="docutils literal"><span class="pre">(Nelder-Mead)</span></tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine amoeba
+<span class="ln"> 2 </span>  Core subroutine for Nelder-Mead N-dimensional minimization
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: Nelder-Mead class object
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  y, p: function values &amp; simplex vertices of a minimum
+<span class="ln"> 7 </span>  iter: no. function evaluations performed
+<span class="ln"> 8 </span>note
+<span class="ln"> 9 </span>  - Depends on the amotry_NM function.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function amotry_NM
+<span class="ln">2 </span>  Support procedure for Nelder-Mead N-dimensional minimization
+<span class="ln">3 </span>description
+<span class="ln">4 </span>  Extrapolates by a factor &quot;fac&quot; through the face of the simplex across from the
+<span class="ln">5 </span>  high point, tries it, and replaces the high point if the new point is better.
+<span class="ln">6 </span>input, output
+<span class="ln">7 </span>  See subroutine amoeba
+</pre>
+<p><strong>Procedures</strong> <tt class="docutils literal">(FRPR <span class="pre">conjugate-gradient)</span></tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine frprmn
+<span class="ln"> 2 </span>  Core subroutine for FRPR conjugate-gradient minimization
+<span class="ln"> 3 </span>input
+<span class="ln"> 4 </span>  this: FRPR conjugate-gradient class object
+<span class="ln"> 5 </span>output
+<span class="ln"> 6 </span>  y, p: function value &amp; point of a minimum
+<span class="ln"> 7 </span>  iter: no. function evaluations performed
+<span class="ln"> 8 </span>note
+<span class="ln"> 9 </span>  - We implement the Polak-Ribiere variant for computing a conjugacy
+<span class="ln">10 </span>    coefficient; the original Fletcher-Reeves version is commented out.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine linmin_CG
+<span class="ln"> 2 </span>  Support procedure for FRPR conjugate-gradient minimization
+<span class="ln"> 3 </span>description
+<span class="ln"> 4 </span>  Given a point p and direction xi, moves and resets p to where the function
+<span class="ln"> 5 </span>  func(p) takes on a minimum along the direction xi from p, and replaces xi by
+<span class="ln"> 6 </span>  the actual vector displacement that p was moved. Also returns the function value
+<span class="ln"> 7 </span>  at the returned location p. This is all accomplished by calling the routines
+<span class="ln"> 8 </span>  mnbrak_CG and dbrent_CG.
+<span class="ln"> 9 </span>input, output
+<span class="ln">10 </span>  See subroutine frprmn
+<span class="ln">11 </span>note
+<span class="ln">12 </span>  - The invoked mnbrak_CG and dbrent_CG procedures are wrappers for the standard one-dimensional versions,
+<span class="ln">13 </span>    but with functions f1dim and df1dim (defined in Ch. 10 of Ref. 1) substituted for this FRPR method.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine mnbrak_CG
+<span class="ln">2 </span>  Support procedure for FRPR conjugate-gradient minimization
+<span class="ln">3 </span>description
+<span class="ln">4 </span>  Equivalent to the standard one-dimensional mnbrak subroutine (see its description)
+<span class="ln">5 </span>  but specialized to evaluate func(p + X*xi) for this FRPR class object, where X=scalar.
+<span class="ln">6 </span>input, output
+<span class="ln">7 </span>  See subroutine linmin_CG
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>function dbrent_CG
+<span class="ln">2 </span>  Support procedure for FRPR conjugate-gradient minimization
+<span class="ln">3 </span>description
+<span class="ln">4 </span>  Equivalent to the standard one-dimensional dbrent function (see its description)
+<span class="ln">5 </span>  but specialized to evaluate func/gfunc(p + X*xi) for this FRPR class object, where X=scalar.
+<span class="ln">6 </span>input, output
+<span class="ln">7 </span>  See subroutine linmin_CG
+</pre>
+<p><strong>Procedures</strong> <tt class="docutils literal">(Guided Monte Carlo)</tt></p>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine gmcmn
+<span class="ln">2 </span>  Core subroutine for Guided Monte Carlo N-dimensional minimization
+<span class="ln">3 </span>input
+<span class="ln">4 </span>  this: Guided Monte Carlo class object
+<span class="ln">5 </span>output
+<span class="ln">6 </span>  y, p: function value &amp; point of a minimum
+<span class="ln">7 </span>  iter: no. function evaluations performed
+</pre>
+<p><strong>Optimize-1D core procedures</strong></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine golden
+<span class="ln"> 2 </span>  Golden Section Minimization (1D)
+<span class="ln"> 3 </span>description
+<span class="ln"> 4 </span>  Given a function (func) and bracketing triplet of abscissas (ax,bx,cx),
+<span class="ln"> 5 </span>  this routine performs a golden section search for the minimum, isolating
+<span class="ln"> 6 </span>  it to a fractional precision of about ftol. The abscissa of the minimum
+<span class="ln"> 7 </span>  is returned as xmin, and the minimum function value is returned as fmin.
+<span class="ln"> 8 </span>  Parameters: R &amp; C are the golden ratios.
+<span class="ln"> 9 </span>input
+<span class="ln">10 </span>  func: function (scalar-&gt;scalar) to optimize
+<span class="ln">11 </span>  ax, bx, cx: bracketing triplet of abscissas
+<span class="ln">12 </span>  ftol: fractional precision, no smaller than ~sqrt(epsilon(1.d0))
+<span class="ln">13 </span>output
+<span class="ln">14 </span>  xmin, fmin: abscissa &amp; ordinate of minimum
+<span class="ln">15 </span>note
+<span class="ln">16 </span>  - Use subroutine mnbrak to ensure (ax,bx,cx) is a bracketing triplet.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine brent
+<span class="ln"> 2 </span>  Brent's Minimization Method (1D)
+<span class="ln"> 3 </span>description
+<span class="ln"> 4 </span>  Given a function (func) and bracketing triplet of abscissas (ax,bx,cx),
+<span class="ln"> 5 </span>  this routine isolates the minimum to a fractional precision of about ftol
+<span class="ln"> 6 </span>  using Brent's method. The abscissa of the minimum is returned as xmin, and
+<span class="ln"> 7 </span>  the minimum function value is returned as fmin. Parameters: ITMAX is the max
+<span class="ln"> 8 </span>  allowed number of iterations; CGOLD is 1-minus the Golden Ratio; and ZEPS protects
+<span class="ln"> 9 </span>  against trying to achieve a fractional accuracy for a minimum that is exactly zero.
+<span class="ln">10 </span>input
+<span class="ln">11 </span>  func: function (scalar-&gt;scalar) to optimize
+<span class="ln">12 </span>  ax, bx, cx: bracketing triplet of abscissas
+<span class="ln">13 </span>  ftol: fractional precision, no smaller than ~sqrt(epsilon(1.d0))
+<span class="ln">14 </span>output
+<span class="ln">15 </span>  xmin, fmin: abscissa &amp; ordinate of minimum
+<span class="ln">16 </span>note
+<span class="ln">17 </span>  - Use subroutine mnbrak to ensure (ax,bx,cx) is a bracketing triplet.
+</pre>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function dbrent
+<span class="ln"> 2 </span>  Brent's Derivative-based Minimization Method (1D)
+<span class="ln"> 3 </span>description
+<span class="ln"> 4 </span>  Given a function &amp; its derivative (func &amp; dfunc), and a bracketing
+<span class="ln"> 5 </span>  triplet of abscissas (ax,bx,cx), this routine isolates the minimum
+<span class="ln"> 6 </span>  to a fractional precision of about ftol using a modification of Brent's
+<span class="ln"> 7 </span>  method that uses derivatives. The abscissa of the minimum is returned as
+<span class="ln"> 8 </span>  xmin, and the minimum function value is returned as dbrent.
+<span class="ln"> 9 </span>input
+<span class="ln">10 </span>  func, dfunc: function to optimize &amp; its derivative (both scalar-&gt;scalar)
+<span class="ln">11 </span>  ax, bx, cx: bracketing triplet of abscissas
+<span class="ln">12 </span>  ftol: fractional precision, no smaller than ~sqrt(epsilon(1.d0))
+<span class="ln">13 </span>output
+<span class="ln">14 </span>  xmin, dbrent: abscissa &amp; ordinate of minimum
+<span class="ln">15 </span>note
+<span class="ln">16 </span>  - Use subroutine mnbrak to ensure (ax,bx,cx) is a bracketing triplet.
+</pre>
+<p><strong>Procedures</strong> <tt class="docutils literal">(1D support)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>subroutine mnbrak
+<span class="ln"> 2 </span>  Minimization Bracketer (1D)
+<span class="ln"> 3 </span>description
+<span class="ln"> 4 </span>  Given a function (func) and distinct initial points (ax,bx), this routine searches
+<span class="ln"> 5 </span>  in the downhill direction and returns new points (ax,bx,cx) that bracket a minimum
+<span class="ln"> 6 </span>  of the function. Also returned are the function values at the 3 points, (fa,fb,fc).
+<span class="ln"> 7 </span>  Parameters: GOLD is the default ratio by which successive intervals are magnified;
+<span class="ln"> 8 </span>  GLIMIT is the maximum magnification allowed for a parabolic-fit step.
+<span class="ln"> 9 </span>input
+<span class="ln">10 </span>  func: target function (scalar-&gt;scalar)
+<span class="ln">11 </span>  ax, bx: search domain min &amp; max
+<span class="ln">12 </span>output
+<span class="ln">13 </span>  ax, bx, cx: bracketing triplet, ordered: ax&lt;bx&lt;cx or ax&gt;bx&gt;cx.
+<span class="ln">14 </span>  fa, fb, fc: function evaluated at (ax,bx,cx), ordered: fb&lt;fa and fb&lt;fc.
+<span class="ln">15 </span>note
+<span class="ln">16 </span>  - The input order of ax &amp; bx does not matter.
+<span class="ln">17 </span>  - Upon output, ax&lt;bx&lt;cx or ax&gt;bx&gt;cx, and fb&lt;fa and fb&lt;fc always.
+</pre>
+<p><strong>Procedures</strong> <tt class="docutils literal">(misc)</tt></p>
+<pre class="code literal-block">
+<span class="ln"> 1 </span>function dfridr_ss (or _vs)
+<span class="ln"> 2 </span>  Compute the numerical derivative of a scalar-&gt;scalar (or vector-&gt;scalar)
+<span class="ln"> 3 </span>  function at a point using Ridders' method of polynomial extrapolation.
+<span class="ln"> 4 </span>input
+<span class="ln"> 5 </span>  func: function to differentiate
+<span class="ln"> 6 </span>  n: component to differentiate (_vs only)
+<span class="ln"> 7 </span>  x: evaluation point
+<span class="ln"> 8 </span>  h: estimated initial step-size
+<span class="ln"> 9 </span>  err: returned error estimate
+<span class="ln">10 </span>note
+<span class="ln">11 </span>  - The step-size (h) need not be small; it should be an increment in x over
+<span class="ln">12 </span>    which func changes substantially. This procedure iteratively reduces h.
+<span class="ln">13 </span>  - Parameters: CON is the step-size reduction factor per iteration; NTAB is
+<span class="ln">14 </span>    the maximum tableau size; and the the procedure returns when the error is
+<span class="ln">15 </span>    SAFE worse than the best so far.
+<span class="ln">16 </span>  - You can invoke me through the module interface dfridr.
+</pre>
+<pre class="code literal-block">
+<span class="ln">1 </span>subroutine init_RNG
+<span class="ln">2 </span>  Initialize the (pseudo) Random Number Generator by querying /dev/urandom for seeds
+</pre>
+</div>
+</div>
+</body>
+</html>
