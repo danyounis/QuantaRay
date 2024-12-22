@@ -1,0 +1,49 @@
+global simulation time
+t_max: 2.5355d4
+dt:    0.05
+
+wavefunction domain
+r_max: 6.0d3          ! radial extent
+l_max: 8              ! OAM Q-numbers
+dr:    0.2            ! spatial resolution
+rm:    50.0           ! masking radius
+
+atomic properties
+Z: 1                  ! nuclear charge
+nlm: 2 1 0            ! initial-state Q-numbers
+tau: 1.0d3            ! relaxation time
+dtau: 0.05            ! ... time-step
+
+p-electron spectrum
+rng: -0.6 0.6         ! energy limits
+res: 7.5d-4           ! bin resolution
+ord: 2                ! operator order
+
+c-level occupations
+E: 0.5 , 1.0          ! energy
+l: 1 , 2              ! OAM number
+
+pump field parameters
+type:  trapz-2        ! temporal profile
+Eu:    2.0674d-3      ! amplitude (au, 150 GW/cm2)
+omg_u: 0.0694         ! frequency (au, 656 nm)
+time:  276.0          ! pulse duration
+CEP:   0.0            ! carrier-envelope phase
+tu_on: 0.0            ! start time
+
+probe field parameters
+type:  trapz-2        ! temporal profile
+Er:    1.1936d-3      ! amplitude (au, 50 GW/cm2)
+omg_r: 0.1388         ! frequency (au, 328 nm)
+time:  196.0          ! pulse duration
+CEP:   0.0            ! carrier-envelope phase
+tr_on: 1.63d4         ! start time
+
+radiation emission?
+choice: T
+
+data output
+dt_save: 0.5 cyc      ! save rate + unit
+
+update runtime log every N time steps
+N: 905

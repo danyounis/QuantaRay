@@ -1,0 +1,70 @@
+mode: 2d1e-cnn
+ccr: T
+
+global simulation time
+t_max: 2.0d3
+dt:    0.01
+
+particle propagation
+int: rk4              ! integration method
+dtp: 1.0 au           ! push time-step + unit
+-tracking
+enable: F
+no: 1                 ! tracks per detector
+wgt: 50.0             ! max weight %
+
+wavefunction domain
+x: -25.0 25.0         ! range
+y: -25.0 25.0
+nx: 500               ! grid pts
+ny: 500
+dm: 5.0               ! masking distance
+
+atomic properties
+Z1:  +1               ! nuclear charge
+Z2:  -1               ! electron charge
+Pa:  -1               ! parity
+En:  -0.857           ! eigen-energy
+tau:  2.0d2           ! relaxation time
+dtau: 0.01            ! ... time-step
+aps:  0.28            ! core parameter
+
+field parameters
+type:  trapz-2        ! temporal profile
+E0:    0.1068         ! amplitude (au, 0.4 PW/cm2)
+omg0:  0.0759         ! frequency (au, 600 nm)
+eps:   0.78           ! ellipticity
+time:  20.0           ! pulse duration
+CEP:   0.0            ! carrier-envelope phase
+t_on:  0.0            ! start time
+
+virtual detectors
+G: circle             ! geometry
+Nv: 500               ! number
+R0: 20.0              ! ring size
+unwrap_phase: F
+
+radiation emission?
+choice: T
+
+t-SURFF distribution
+enable: T
+int: li               ! interpolation method
+dti: 0.1              ! integration time-step
+Ns: 500               ! surface pts
+R0: 20.0              ! integration radius
+kx: -2.0 2.0          ! momentum range
+ky: -2.0 2.0
+nk: 100 100           ! grid pts
+
+qm grid output
+dt_save: 5.0 au       ! save rate + unit
+
+qm proj output
+dt_save: 5.0 au
+
+update runtime log every N time steps
+N: 1000
+
+echo this input deck?
+choice: T

@@ -1,0 +1,511 @@
+! QuantaRay 2D 1e CUDA (qray2d1e/cuda)
+!
+! Quantum Calculation Routine (QCR)
+!
+! Author:  D. Younis
+!          University of Rochester
+!          Department of Physics
+!
+! Written: 9/10/2020
+! Revised: 3/10/2022
+!
+! DESCRIPTION
+!   Numerically solves the time-dependent Schrodinger equation for an atomic
+!   electron in an electromagnetic field.
+!
+! INPUT
+!   Refer to the input deck template file: qr-stdin.deck.
+!
+! OUTPUT
+!   Raw binary datasets containing wavefunction data.
+!
+! NOTES
+!   This version uses CUDA FFT routines to propagate the wavefunction, refer to:
+!   "CUDA Fortran for Scientists and Engineers," by G. Ruetsch and M. Fatica.
+!
+!   This version does not employ numerical detectors, it is intended for large
+!   volume, high grid-resolution runs to understand wavefunction dynamics.
+
+program main
+    use prec
+    use math
+    use quantum
+    use emfm
+    use rochester
+    use omp_lib
+
+    use cufft
+    use cudafor
+    use iso_c_binding
+
+    implicit none
+
+    ! code revision date
+    character(len=21), parameter :: crv = 'qcr2d1e-CUDA-20220310'
+    ! execution date / time
+    character(len=8) :: exec_date
+    character(len=6) :: exec_time
+    ! total computation time
+    real, dimension(2) :: cpu_t, wall_t
+
+    ! input deck variables
+    character(len=24) :: deck_name
+    logical :: echo_input
+    integer :: ig(3), nt_update
+
+    ! global simulation time parameters
+    real      :: t_max
+    real(num) :: dt
+
+    ! wavefunction domain parameters
+    real :: x_lim(2), y_lim(2), abs_rad
+
+    ! grid variables
+    real(num), dimension(:), allocatable :: t, x, y, px, py
+    real(num) :: dr(2), dp(2)
+    integer   :: nr(2), nt, it, ix, iy
+
+    ! wavefunction variables
+    type(SchrodingerWavefunction2D) :: wavefn
+    complex(num), dimension(:,:), allocatable :: phi
+    complex(num), dimension(:,:), allocatable, device :: psi_d, phi_d
+    type(c_ptr) :: plan
+
+    ! em-field variables
+    type(emf) :: field
+
+    ! kinetic/potential variables
+    real(num) :: ac, Z1, Z2
+    real(num),    dimension(:,:), allocatable :: Tk, Vp0
+    complex(num), dimension(:,:), allocatable :: Vp, Va
+
+    ! save rate for qm data
+    real :: gout_dt
+    ! output containers
+    complex(num), dimension(:,:,:), allocatable :: psi_out
+    real(num),    dimension(:,:,:), allocatable :: Vp_out
+    real(num),    dimension(:),     allocatable :: tg_out
+
+    ! parse input deck
+    call get_command_argument(1,deck_name)
+    call read_deck
+
+    nt = nint(t_max/dt) + 1
+
+    ! output info for qm data
+    ig(1) = nint(t_max/gout_dt) + 1 ! total saves
+    ig(2) = nint(gout_dt/dt)        ! save frequency
+    ig(3) = 1                       ! current save index
+
+    ! construct wavefunction domain
+    allocate(t(nt), x(nr(1)), y(nr(2)), px(nr(1)), py(nr(2)))
+    t = linspace(0.0, t_max, dt)
+    x = linspace(x_lim(1), x_lim(2), nr(1)); dr(1) = x(2) - x(1);
+    y = linspace(y_lim(1), y_lim(2), nr(2)); dr(2) = y(2) - y(1);
+    px = 2.*pi*fft_freq(nr(1),dr(1),.false.); dp(1) = px(2) - px(1);
+    py = 2.*pi*fft_freq(nr(2),dr(2),.false.); dp(2) = py(2) - py(1);
+
+    ! allocate variables
+    allocate(Tk(nr(1),nr(2)), Vp(nr(1),nr(2)), Vp0(nr(1),nr(2)), Va(nr(1),nr(2)))
+    allocate(psi_out(nr(1),nr(2),ig(1)), Vp_out(nr(1),nr(2),ig(1)), tg_out(ig(1)))
+
+    ! allocate GPU variables and create CUFFT plan
+    allocate(psi_d(nr(1),nr(2)), phi_d(nr(1),nr(2)))
+    call cufftPlan2dS(plan, nr(1), nr(2), CUFFT_C2C)
+
+    ! start computation clock
+    call cpu_time(cpu_t(1))
+    wall_t(1) = OMP_get_wtime()
+    ! get date/time of execution
+    call date_and_time(date=exec_date, time=exec_time)
+    ! utilize all available threads
+    call OMP_set_num_threads(OMP_get_max_threads())
+    ! query CUDA devices
+    call CUDA_device_query
+    ! echo input deck
+    if (echo_input) call echo_deck
+
+    ! initialize wavefunction
+    call wavefn % init(nr,nt); allocate(phi(nr(1),nr(2)));
+    ForAll(ix=1:nr(1),iy=1:nr(2)) &
+        wavefn % psi(ix,iy) = sqrt(2.0/pi) * exp(-sqrt(x(ix)**2 + y(iy)**2))
+
+    ! initialize em-field
+    field%CEP = field%CEP * pi
+    call field % init_trapz(t)
+
+    ! construct kinetic energy operator
+    ForAll(ix=1:nr(1),iy=1:nr(2)) Tk(ix,iy) = (px(ix)**2 + py(iy)**2)/2.0
+
+    ! construct atomic + absorbing potential
+    ForAll(ix=1:nr(1),iy=1:nr(2)) Vp0(ix,iy) = Vsc((/Z1,Z2/), (/x(ix), y(iy)/), ac)
+    call mk_abs_potential
+
+    ! initialize time-dependent potential
+    ForAll(ix=1:nr(1),iy=1:nr(2)) &
+        Vp(ix,iy) = Vp0(ix,iy) + Va(ix,iy) + x(ix)*field%Ex(1) + y(iy)*field%Ey(1)
+
+    ! save initial qm data
+    call store_qm_data(1)
+
+    ! calculate time-dependent wavefunction quantities
+    wavefn % norm(1) = dr(1)*dr(2)*trapz(abs(wavefn%psi)**2)
+    wavefn % energy(1) = calc_energy(wavefn%psi, Tk, Vp0, dr, dp)
+
+    ! initialize runtime log
+    call init_runtime_log
+
+    ! IMAGINARY TIME PROPAGATION !
+    do it=2,field%it_on-1
+        if (mod(it,nt_update) == 0) call update_runtime_log
+
+        ! advance wavefunction
+        call psi_dt_propagate(cmplx(Vp0, kind=num), -i)
+        wavefn % psi = wavefn%psi/sqrt(dr(1)*dr(2)*trapz(abs(wavefn%psi)**2))
+        wavefn % norm(it) = dr(1)*dr(2)*trapz(abs(wavefn%psi)**2)
+        wavefn % energy(it) = calc_energy(wavefn%psi, Tk, Vp0, dr, dp)
+
+        if (mod(it,ig(2)) == 0) call store_qm_data(it)
+    end do
+
+    ! output relaxation energy
+    open(2, file='runtime_qcr.log', status='old', access='append')
+    write(2,'(A)') NEW_LINE('A')//'Imaginary time propagation completed.'
+    write(2,'(A,F6.3,A)') 'ground-state energy = ', &
+        wavefn%energy(field%it_on-1), ' au'//NEW_LINE('A')
+    write(2,'(A)') 'Starting real time propagation...'
+    close(2)
+
+    ! REAL TIME PROPAGATION !
+    do it=field%it_on,nt
+        if (mod(it,nt_update) == 0) call update_runtime_log
+
+        ! update time-dependent potential
+        ForAll(ix=1:nr(1),iy=1:nr(2)) &
+            Vp(ix,iy) = Vp0(ix,iy) + Va(ix,iy) + x(ix)*field%Ex(it) + y(iy)*field%Ey(it)
+
+        ! advance wavefunction
+        call psi_dt_propagate(Vp, cmplx(1.0))
+        wavefn % norm(it) = dr(1)*dr(2)*trapz(abs(wavefn%psi)**2)
+        wavefn % energy(it) = calc_energy(wavefn%psi, Tk, Vp0, dr, dp)
+
+        if (mod(it,ig(2)) == 0) call store_qm_data(it)
+    end do
+
+    ! release device memory and destroy CUFFT plan
+    deallocate(psi_d, phi_d)
+    call cufftDestroy(plan)
+
+    ! output data
+    open(2, file='runtime_qcr.log', status='old', access='append')
+    write(2,'(A)') NEW_LINE('A')//'writing data...'
+    close(2)
+
+    call WRITE_DATA_QCR
+
+    ! stop computation clock
+    call cpu_time(cpu_t(2))
+    wall_t(2) = OMP_get_wtime()
+
+    ! finalize runtime log
+    call end_runtime_log
+    call exit()
+
+contains
+
+! Advance the Schrodinger wavefunction (psi) by dt using the split-operator method.
+subroutine psi_dt_propagate(V, j)
+    implicit none
+    complex(num), intent(in) :: V(:,:)
+    complex, intent(in) :: j
+
+    ! SPLIT-OPERATOR METHOD !
+    ! Apply 1st half potential energy part of Trotter expansion.
+    wavefn%psi = exp(-(i*j)*V*dt/2.0) * wavefn%psi
+    psi_d = wavefn%psi
+
+    ! Fourier transform wavefunction; momentum-space representation.
+    call cufftExecC2C(plan, psi_d, phi_d, CUFFT_FORWARD)
+    phi = phi_d
+
+    ! Apply kinetic energy part of Trotter expansion.
+    phi = exp(-(i*j)*Tk*dt) * phi
+    phi_d = phi
+
+    ! Inverse Fourier transform wavefunction.
+    call cufftExecC2C(plan, phi_d, psi_d, CUFFT_INVERSE)
+    wavefn%psi = psi_d/real(nr(1)*nr(2),num)
+
+    ! Apply 2nd half potential energy part of Trotter expansion.
+    wavefn%psi = exp(-(i*j)*V*dt/2.0) * wavefn%psi
+
+    return
+end subroutine psi_dt_propagate
+
+! construct a cylindrical absorbing boundary of a specified radius (abs_rad)
+subroutine mk_abs_potential
+    implicit none
+    Va = 0.0_num
+    do ix=1,nr(1)
+    do iy=1,nr(2)
+        if (sqrt(x(ix)**2 + y(iy)**2) >= abs_rad) &
+            Va(ix,iy) = -i*abs(sqrt(x(ix)**2 + y(iy)**2)-abs_rad)**4
+    end do
+    end do
+    return
+end subroutine mk_abs_potential
+
+! store qm data for time step k
+subroutine store_qm_data(k)
+    implicit none
+    integer, intent(in) :: k
+    psi_out(:,:,ig(3)) = wavefn % psi
+    Vp_out(:,:,ig(3)) = real(Vp,num)
+    tg_out(ig(3)) = t(k)
+    ig(3) = ig(3) + 1
+    return
+end subroutine store_qm_data
+
+subroutine read_deck
+    character(len=14) :: label
+    open(1, file=deck_name, status='old', action='read')
+    read(1,*) ! global simulation time
+    read(1,*) label, t_max
+    read(1,*) label, dt
+    read(1,*)
+    read(1,*) ! one-dimensional mode
+    read(1,*) ! skip oned_routine
+    read(1,*) ! skip oned_method
+    read(1,*)
+    read(1,*) ! trajectory propagation
+    read(1,*) ! skip int
+    read(1,*) ! skip dtp
+    read(1,*)
+    read(1,*) ! wavefunction domain
+    read(1,*) label, x_lim(1), x_lim(2)
+    read(1,*) label, y_lim(1), y_lim(2)
+    read(1,*) label, nr(1)
+    read(1,*) label, nr(2)
+    read(1,*) label, abs_rad
+    read(1,*)
+    read(1,*) ! rochester potential
+    read(1,*) label, Z1
+    read(1,*) label, Z2
+    read(1,*) label, ac
+    read(1,*)
+    read(1,*) ! field parameters
+    read(1,*) label, field % E0
+    read(1,*) label, field % omg0
+    read(1,*) label, field % eps
+    read(1,*) label, field % Ncyc
+    read(1,*) label, field % CEP
+    read(1,*) label, field % t_on
+    read(1,*)
+    read(1,*) ! virtual detectors
+    read(1,*) ! skip Nv
+    read(1,*) ! skip R0
+    read(1,*) ! skip unwrap_phase
+    read(1,*)
+    read(1,*) ! qm data output settings
+    read(1,*) label, gout_dt
+    read(1,*)
+    read(1,*) ! update runtime log every N time steps
+    read(1,*) label, nt_update
+    read(1,*)
+    read(1,*) ! echo this input deck?
+    read(1,*) label, echo_input
+    close(1)
+    return
+end subroutine read_deck
+
+! echo simulation parameters to text file
+subroutine echo_deck
+    open(1, file='input-echo.txt', status='new')
+    write(1,'(A,I2)') 'QuantaRay version: '//crv//'_x',8*num
+    write(1,'(A)') 'executed: '//exec_date//' '//exec_time
+    write(1,'(A,I2)') 'OMP threads: ', OMP_get_max_threads()
+    write(1,'(A)')
+    write(1,'(A)') 'global simulation time'
+    write(1,'(A,F7.2,A)') 't  = ', t(nt), ' au'
+    write(1,'(A,F5.3,A)') 'dt = ', dt, ' au'
+    write(1,'(A,I6,A)') 'nt = ', nt, ' pts'//NEW_LINE('A')
+    write(1,'(A)') 'wavefunction domain'
+    write(1,'(A,I4,A,I3,A)') 'x: [',nint(x_lim(1)),', ',&
+        nint(x_lim(2)),'] au'
+    write(1,'(A,I4,A,I3,A)') 'y: [',nint(y_lim(1)),', ',&
+        nint(y_lim(2)),'] au'
+    write(1,'(A,E9.3,A)') 'dx = ', dr(1), ' au'
+    write(1,'(A,E9.3,A)') 'dy = ', dr(2), ' au'
+    write(1,'(A,I4,A)') 'nx = ', nr(1), ' pts'
+    write(1,'(A,I4,A)') 'ny = ', nr(2), ' pts'
+    write(1,'(A,F5.1,A)') 'abs_rad = ', abs_rad, ' au'//NEW_LINE('A')
+    write(1,'(A)') 'rochester potential'
+    write(1,'(A,I2)') 'Z1 = ', Z1
+    write(1,'(A,I2)') 'Z2 = ', Z2
+    write(1,'(A,F4.2,A)') 'ac = ', ac, ' au'//NEW_LINE('A')
+    write(1,'(A)') 'field parameters'
+    write(1,'(A,F6.4,A)') 'E0   = ', field%E0, ' au'
+    write(1,'(A,F6.4,A)') 'omg0 = ', field%omg0, ' au'
+    write(1,'(A,F4.2)')   'eps  = ', field%eps
+    write(1,'(A,F4.1,A)') 'Ncyc = ', field%Ncyc, ' cycles'
+    write(1,'(A,F5.3,A)') 'CEP  = ', field%CEP, ' pi'
+    write(1,'(A,F4.1,A)') 't_on = ', field%t_on, ' au'//NEW_LINE('A')
+    write(1,'(A)') 'qm data output settings'
+    write(1,'(A,F6.2,A)') 'dt save: ', gout_dt, ' au'
+    write(1,'(A,I3)')   'nt saves: ', ig(1)
+    close(1)
+    return
+end subroutine echo_deck
+
+! query/echo detected CUDA devices
+subroutine CUDA_device_query
+    implicit none
+    type (cudaDeviceProp) :: prop
+    integer :: nDevices = 0, id, ierr
+
+    ! number of CUDA-capable devices
+    ierr = cudaGetDeviceCount(nDevices)
+
+    open(1, file='cuda.devices', status='new')
+    if (nDevices == 0) then
+        write(1,'(A)') 'No CUDA devices found'
+    else if (nDevices == 1) then
+        write(1,'(A)') 'One CUDA device found'
+    else
+        write(1,'(I0,A)') nDevices, ' CUDA devices found'
+    end if
+    write(1,'(A)')
+
+    ! iterate through devices
+    do id=0,nDevices-1
+        write(1,'(A,I0)') 'Device Number: ', id
+        ierr = cudaGetDeviceProperties(prop, id)
+
+        ! general device info
+        write(1,'(A)') 'Device Name: '//trim(prop%name)
+        write(1,'(A,I0,A,I0)') 'Compute Capability: ', prop%major, '.', prop%minor
+        write(1,'(A,I0)') 'Number of Multiprocessors: ', prop%multiProcessorCount
+        write(1,'(A,I0)') 'Max Threads per Multiprocessor: ', prop%maxThreadsPerMultiprocessor
+        write(1,'(A,F6.3)') 'Global Memory (GB): ', prop%totalGlobalMem/1024.0**3
+        write(1,'(A)')
+
+        ! execution configuration
+        write(1,'(A)') 'Execution Configuration Limits'
+        write(1,'("Max Grid Dims: ",2(I0," x "),I0)') prop%maxGridSize
+        write(1,'("Max Block Dims: ",2(I0," x "),I0)') prop%maxThreadsDim
+        write(1,'("Max Threads per Block: ",I0,/)') prop%maxThreadsPerBlock
+    end do
+
+    close(1)
+
+    return
+end subroutine CUDA_device_query
+
+! initialize runtime log
+subroutine init_runtime_log
+    open(2, file='runtime_qcr.log', status='new')
+    write(2,'(A,I2)') 'QuantaRay version: '//crv//'_x',8*num
+    write(2,'(A)') 'executed: '//exec_date//' '//exec_time
+    write(2,'(A,I2)') 'OMP threads: ', OMP_get_max_threads()
+    write(2,'(A)')
+    write(2,'(A)') 'Starting simulation...'
+    write(2,'(A,F7.2,A,I6)') 't = ', t(1), ' au    nt: ', 1
+    close(2)
+    return
+end subroutine init_runtime_log
+
+! update runtime log
+subroutine update_runtime_log
+    open(2, file='runtime_qcr.log', status='old', access='append')
+    write(2,'(A,F7.2,A,I6)') 't = ', t(it)+dt, ' au    nt: ', it
+    close(2)
+    return
+end subroutine update_runtime_log
+
+! finalize runtime log
+subroutine end_runtime_log
+    open(2, file='runtime_qcr.log', status='old', access='append')
+    write(2,'(A)') NEW_LINE('A')//'Simulation completed.'
+    write(2,'(A,F9.2,A)') 'total execution time:', (cpu_t(2)-cpu_t(1))/3.6e3, ' core-hrs'
+    write(2,'(F9.2,A)') (wall_t(2)-wall_t(1))/3.6e3, ' wall clock time (hrs)'
+    close(2)
+    return
+end subroutine end_runtime_log
+
+! output data in raw binary format
+subroutine WRITE_DATA_QCR
+    implicit none
+    integer :: u
+
+    ! OUTPUT GRID VARIABLES !
+    open(newunit=u, file='t.dat', form='unformatted')
+    write(u) t
+    close(u)
+
+    open(newunit=u, file='tg.dat', form='unformatted')
+    write(u) tg_out
+    close(u)
+
+    open(newunit=u, file='x.dat', form='unformatted')
+    write(u) x
+    close(u)
+
+    open(newunit=u, file='y.dat', form='unformatted')
+    write(u) y
+    close(u)
+
+    ! OUTPUT POTENTIAL ENERGY VARIABLES !
+    open(newunit=u, file='Va.dat', form='unformatted')
+    write(u) aimag(Va)
+    close(u)
+
+    open(newunit=u, file='Vp.dat', form='unformatted')
+    write(u) Vp_out
+    close(u)
+
+    ! OUTPUT WAVEFUNCTION DATA !
+    open(newunit=u, file='Re_psi.dat', form='unformatted')
+    write(u) real(psi_out)
+    close(u)
+
+    open(newunit=u, file='Im_psi.dat', form='unformatted')
+    write(u) aimag(psi_out)
+    close(u)
+
+    open(newunit=u, file='norm_psi.dat', form='unformatted')
+    write(u) wavefn%norm
+    close(u)
+
+    open(newunit=u, file='energy_psi.dat', form='unformatted')
+    write(u) wavefn%energy
+    close(u)
+
+    ! OUTPUT FIELD DATA !
+    open(newunit=u, file='Ex.dat', form='unformatted')
+    write(u) field%Ex
+    close(u)
+
+    open(newunit=u, file='Ey.dat', form='unformatted')
+    write(u) field%Ey
+    close(u)
+
+    open(newunit=u, file='Ax.dat', form='unformatted')
+    write(u) field%Ax
+    close(u)
+
+    open(newunit=u, file='Ay.dat', form='unformatted')
+    write(u) field%Ay
+    close(u)
+
+    ! OUTPUT VARIABLE DIMENSION INFO !
+    open(newunit=u, file='dims.dat', status='new')
+    write(u,'(I4)') nr(1)
+    write(u,'(I4)') nr(2)
+    write(u,'(I6)') nt
+    write(u,'(I6)') ig(1)
+    close(u)
+
+    return
+end subroutine WRITE_DATA_QCR
+
+end program main
