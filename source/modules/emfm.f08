@@ -5,7 +5,7 @@
 !          Department of Physics
 !
 ! Written: 6/2/2020
-! Revised: 12/1/2023
+! Revised: 5/23/2026
 
 module emfm
 
@@ -56,7 +56,7 @@ subroutine emf_trapezoidal_pulse(this, t)
     idx(4) = nint((this%t_on + this%Tp)/dt) + 1 ! pulse end
 
     ! construct trapezoidal function with Ncyc_rf-cycle turn-on/turn-off
-    allocate(ft(nt), carrier(nt), source=0.0_num)
+    allocate(ft(nt), carrier(nt), source=zero_r)
     do it=1,nt
         if ((it >= idx(1)).and.(it < idx(2))) then
             ft(it) = (t(it) - this%t_on)/(this%Ncyc_rf*this%T0)
@@ -121,7 +121,7 @@ subroutine emf_sine_squared_pulse(this, t)
     this%it_off = nint(this%t_off/dt) + 1
 
     ! construct sine-squared function
-    allocate(ft(nt), gt(nt), carrier(nt), source=0.0_num)
+    allocate(ft(nt), gt(nt), carrier(nt), source=zero_r)
     do it=1,nt
     if ((t(it) >= this%t_on).and.(t(it) <= this%t_off)) then
         ft(it) = sin(pi*(t(it)-this%t_on)/this%Tp)**2
@@ -176,7 +176,7 @@ subroutine emf_gaussian_pulse(this, t)
     this%T0 = (2.*pi)/this%omg0 ! period
 
     ! construct gaussian function
-    allocate(ft(nt), carrier(nt), source=0.0_num)
+    allocate(ft(nt), carrier(nt), source=zero_r)
     ft = exp(-(t-this%Tpk)**2/w0t**2)
     carrier = this%omg0*(t-this%t_on) + this%ch1*(t-this%t_on)**2 + this%CEP
 
@@ -230,7 +230,7 @@ subroutine emf_gaussian_l_pulse(this, t)
     this%T0 = (2.*pi)/this%omg0 ! period
 
     ! construct gaussian function
-    allocate(ft(nt), carrier(nt), source=0.0_num)
+    allocate(ft(nt), carrier(nt), source=zero_r)
     ft = exp(-(t-this%Tpk)**2/w0t**2)
     carrier = this%omg0*(t-this%t_on) + this%ch1*(t-this%t_on)**2 + this%CEP
 

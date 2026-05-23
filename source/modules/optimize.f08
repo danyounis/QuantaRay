@@ -5,7 +5,7 @@
 !          Department of Physics
 !
 ! Written: 12/7/2021
-! Revised: 2/9/2023
+! Revised: 2/11/2025
 !
 ! References:
 ! [1] W. H. Press, S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery,
@@ -1230,6 +1230,35 @@ subroutine mnbrak(func,ax,bx,cx,fa,fb,fc)
 
     return
 end subroutine mnbrak
+
+! __________________________________________________________________________________________________
+!
+! Search procedures
+! __________________________________________________________________________________________________
+!
+
+recursive function BinarySearch(arr,ia,ib,x) result(ir)
+    implicit none
+    real(num), intent(in) :: arr(:), x
+    integer, intent(in) :: ia, ib
+    integer :: ir, mid
+
+    mid = ia + (ib-ia)/2
+
+    if (ia == ib-1) then
+        if (x >= arr(ib)) then; ir = ib;
+        else; ir = ia; end if;
+        return
+    end if
+
+    if (x < arr(mid)) then
+        ir = BinarySearch(arr,ia,mid,x)
+    else
+        ir = BinarySearch(arr,mid,ib,x)
+    end if
+
+    return
+end function BinarySearch
 
 ! __________________________________________________________________________________________________
 !

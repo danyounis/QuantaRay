@@ -5,7 +5,7 @@
 !          Department of Physics
 !
 ! Written: 3/29/2020
-! Revised: 12/22/2024
+! Revised: 5/23/2026
 !
 ! References:
 ! [1] W. H. Press, S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery,
@@ -21,6 +21,9 @@ implicit none
 real(8), parameter, public :: pi = 4.d0*datan(1.d0)
 complex, parameter, public :: i = (0,1)
 
+real(num), parameter, public :: zero_r = 0.0_num
+complex(num), parameter, public :: zero_c = (0.0_num, 0.0_num)
+
 interface linspace
     module procedure linspace_n
     module procedure linspace_d
@@ -29,7 +32,7 @@ end interface linspace
 interface rotM90
     module procedure rotM90R
     module procedure rotM90C
-end interface
+end interface rotM90
 
 interface fliplr
     module procedure fliplr_ra
@@ -141,6 +144,20 @@ interface bcuint
     module procedure bcuint_c
 end interface bcuint
 
+interface operator (.cross.)
+    module procedure cross_rr
+    module procedure cross_cc
+    module procedure cross_rc
+    module procedure cross_cr
+end interface
+
+interface operator (.dot.)
+    module procedure dot_rr
+    module procedure dot_cc
+    module procedure dot_rc
+    module procedure dot_cr
+end interface
+
 contains
 
 function linspace_n(a,b,n) result(vec)
@@ -150,7 +167,7 @@ function linspace_n(a,b,n) result(vec)
     real(num), dimension(:), allocatable :: vec
     real(num) :: dx
     integer :: j
-    allocate(vec(n), source=0.0_num)
+    allocate(vec(n), source=zero_r)
     dx = (b-a)/real(n-1,num)
     ForAll(j=1:n) vec(j) = a + (j-1)*dx
     return
@@ -163,7 +180,7 @@ function linspace_d(a,b,dx) result(vec)
     real(num), dimension(:), allocatable :: vec
     integer :: n, j
     n = nint((b-a)/dx)+1
-    allocate(vec(n), source=0.0_num)
+    allocate(vec(n), source=zero_r)
     ForAll(j=1:n) vec(j) = a + (j-1)*dx
     return
 end function linspace_d
@@ -172,7 +189,7 @@ function zeros(n) result(vec)
     implicit none
     integer, intent(in) :: n
     real(num), dimension(:), allocatable :: vec
-    allocate(vec(n), source=0.0_num)
+    allocate(vec(n), source=zero_r)
     return
 end function zeros
 
@@ -286,7 +303,7 @@ function Identity(n) result(A)
     integer, intent(in) :: n
     real(num), dimension(:,:), allocatable :: A
     integer :: j
-    allocate(A(n,n), source=0.0_num)
+    allocate(A(n,n), source=zero_r)
     ForAll(j=1:n) A(j,j) = 1.0_num
     return
 end function Identity
@@ -296,7 +313,7 @@ function diag_r(arr) result(M)
     real(num), intent(in), dimension(:) :: arr
     real(num), dimension(:,:), allocatable :: M
     integer :: j
-    allocate(M(size(arr),size(arr)), source=0.0_num)
+    allocate(M(size(arr),size(arr)), source=zero_r)
     ForAll(j=1:size(arr,1)) M(j,j) = arr(j)
     return
 end function diag_r
@@ -306,7 +323,7 @@ function diag_c(arr) result(M)
     complex(num), intent(in), dimension(:) :: arr
     complex(num), dimension(:,:), allocatable :: M
     integer :: j
-    allocate(M(size(arr),size(arr)), source=(0.0_num,0.0_num))
+    allocate(M(size(arr),size(arr)), source=zero_c)
     ForAll(j=1:size(arr,1)) M(j,j) = arr(j)
     return
 end function diag_c
@@ -989,7 +1006,7 @@ function fft_freq(n,delta,shift) result(freq)
     logical, intent(in) :: shift
     real(num), allocatable :: freq(:)
     integer :: j
-    allocate(freq(n), source=0.0_num)
+    allocate(freq(n), source=zero_r)
     ForAll(j=1:n/2) freq(j) = real(j-1,num)
     ForAll(j=n/2+1:n) freq(j) = real(j-1-n,num)
     freq = freq/real(n*delta,num)
@@ -1662,17 +1679,17 @@ function trapz_r3d_part(f,ax) result(s)
 
     select case (ax)
     case (1)
-        allocate(s(nn(2),nn(3)), source=0.0_num)
+        allocate(s(nn(2),nn(3)), source=zero_r)
         do j3=1,nn(3)
             s(:,j3) = trapz(f(:,:,j3), ax=2)
         end do
     case (2)
-        allocate(s(nn(1),nn(3)), source=0.0_num)
+        allocate(s(nn(1),nn(3)), source=zero_r)
         do j3=1,nn(3)
             s(:,j3) = trapz(f(:,:,j3), ax=1)
         end do
     case (3)
-        allocate(s(nn(1),nn(2)), source=0.0_num)
+        allocate(s(nn(1),nn(2)), source=zero_r)
         do j2=1,nn(2)
             s(:,j2) = trapz(f(:,j2,:), ax=1)
         end do
@@ -1957,6 +1974,39 @@ real(num) function winHann(t, tau)
     return
 end function winHann
 
+! todo: fix, test, and document !
+complex(quad_t) function erfz(z)
+    implicit none
+    complex(quad_t), intent(in) :: z
+    real(quad_t) :: x, y
+
+    integer :: k
+    integer, parameter :: k_max=100 ! k_max->infinity, convergence
+    real(quad_t), dimension(k_max) :: f, g, expt
+
+    x = real(z,quad_t)
+    y = aimag(z)
+
+    if (y == 0.0_num) then
+        erfz = erf(x)
+        return
+    else if (x == 0.0_num) then
+        ! todo: fix !
+        return
+    else
+        do k=1,k_max
+            f(k) = 2*x*(1.-cos(2*x*y)*cosh(k*y)) + k*sin(2*x*y)*sinh(k*y)
+            g(k) = 2*x*sin(2*x*y)*cosh(k*y) + k*cos(2*x*y)*sinh(k*y)
+            expt(k) = exp(-0.25*real(k,quad_t)**2)/(real(k,quad_t)**2 + 4*(x**2))
+        end do
+
+        erfz = erf(x) + exp(-x**2)*(1.0 - cos(2*x*y) + i*sin(2*x*y))/(2*pi*x) &
+            + (2/pi)*exp(-x**2)*sum(expt*(f + i*g))
+    end if
+
+    return
+end function erfz
+
 subroutine init_RNG()
     use iso_fortran_env, only: int64
     implicit none
@@ -2009,5 +2059,59 @@ contains
     end function lcg
 
 end subroutine init_RNG
+
+pure function cross_rr(a,b) result(v)
+    real(num), intent(in) :: a(3), b(3)
+    real(num) :: v(3)
+    v(1) = a(2)*b(3) - a(3)*b(2)
+    v(2) = a(3)*b(1) - a(1)*b(3)
+    v(3) = a(1)*b(2) - a(2)*b(1)
+end function cross_rr
+
+pure function cross_cc(a,b) result(v)
+    complex(num), intent(in) :: a(3), b(3)
+    complex(num) :: v(3)
+    v(1) = a(2)*b(3) - a(3)*b(2)
+    v(2) = a(3)*b(1) - a(1)*b(3)
+    v(3) = a(1)*b(2) - a(2)*b(1)
+end function cross_cc
+
+pure function cross_rc(a,b) result(v)
+    real(num), intent(in) :: a(3)
+    complex(num), intent(in) :: b(3)
+    complex(num) :: v(3)
+    v(1) = a(2)*b(3) - a(3)*b(2)
+    v(2) = a(3)*b(1) - a(1)*b(3)
+    v(3) = a(1)*b(2) - a(2)*b(1)
+end function cross_rc
+
+pure function cross_cr(a,b) result(v)
+    complex(num), intent(in) :: a(3)
+    real(num), intent(in) :: b(3)
+    complex(num) :: v(3)
+    v = -cross_rc(b,a)
+end function cross_cr
+
+pure real(num) function dot_rr(a,b)
+    real(num), intent(in) :: a(3), b(3)
+    dot_rr = sum(a*b)
+end function dot_rr
+
+pure complex(num) function dot_cc(a,b)
+    complex(num), intent(in) :: a(3), b(3)
+    dot_cc = sum(a*b)
+end function dot_cc
+
+pure complex(num) function dot_rc(a,b)
+    real(num), intent(in) :: a(3)
+    complex(num), intent(in) :: b(3)
+    dot_rc = sum(a*b)
+end function dot_rc
+
+pure complex(num) function dot_cr(a,b)
+    complex(num), intent(in) :: a(3)
+    real(num), intent(in) :: b(3)
+    dot_cr = sum(a*b)
+end function dot_cr
 
 end module math

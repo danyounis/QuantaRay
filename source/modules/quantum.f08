@@ -5,7 +5,7 @@
 !          Department of Physics
 !
 ! Written: 4/30/2020
-! Revised: 12/22/2024
+! Revised: 5/23/2026
 
 module quantum
 
@@ -22,12 +22,12 @@ implicit none
 !
 
 type, public :: SchrodingerWavefunction2D
-    complex(num), dimension(:,:),   allocatable :: psi
+    complex(num), dimension(:,:), allocatable :: psi
     complex(num), dimension(:,:,:), allocatable :: grad_psi
-    real(num),    dimension(:,:),   allocatable :: phase
-    real(num),    dimension(:),     allocatable :: norm, energy
-    real(num),    dimension(:),     allocatable :: D2x, D2y, M2x, M2y
-    integer,      dimension(:,:),   allocatable :: stabx, staby
+    real(num), dimension(:,:), allocatable :: phase
+    real(num), dimension(:), allocatable :: norm, energy
+    real(num), dimension(:), allocatable :: D2x, D2y, M2x, M2y
+    integer, dimension(:,:), allocatable :: stabx, staby
 contains
     procedure :: init_vars => psi2d_initialize_vars
     procedure :: init_form => psi2d_initialize_form
@@ -39,9 +39,9 @@ end type SchrodingerWavefunction2D
 
 type, public :: SchrodingerWavefunction1D
     complex(num), dimension(:), allocatable :: psi, grad_psi
-    real(num),    dimension(:), allocatable :: phase, norm, energy
-    real(num),    dimension(:), allocatable :: D2x, M2x
-    integer,    dimension(:,:), allocatable :: stab
+    real(num), dimension(:), allocatable :: phase, norm, energy
+    real(num), dimension(:), allocatable :: D2x, M2x
+    integer, dimension(:,:), allocatable :: stab
 contains
     procedure :: init_vars => psi1d_initialize_vars
     procedure :: init_form => psi1d_initialize_form
@@ -53,13 +53,13 @@ end type SchrodingerWavefunction1D
 
 type, public :: SchrodingerWavefunction1DR
     complex(num), dimension(:,:), allocatable :: phi
-    real(num),    dimension(:,:), allocatable :: V0, dV0_dr
-    complex(num), dimension(:),   allocatable :: Va
-    real(num),    dimension(:),   allocatable :: norm, energy, clm
-    real(num),    dimension(:),   allocatable :: D1r, D2r, M1r, M2r
-    integer,      dimension(:,:), allocatable :: stab
+    real(num), dimension(:,:), allocatable :: V0, dV0_dr
+    complex(num), dimension(:), allocatable :: Va
+    real(num), dimension(:), allocatable :: norm, energy, clm
+    real(num), dimension(:), allocatable :: D1r, D2r, M1r, M2r
+    integer, dimension(:,:), allocatable :: stab
     real(num) :: Z, D211, M211
-    integer   :: m
+    integer :: m
 contains
     procedure :: init_vars => psi1dr_initialize_vars
     procedure :: init_prop => psi1dr_initialize_propagators
@@ -78,13 +78,13 @@ end type SchrodingerWavefunction1DR
 
 type, public :: tSURFF2D
     complex(num), dimension(:,:), allocatable :: p_dist
-    real(num),    dimension(:),   allocatable :: kx, ky
-    real(num),    dimension(:),   allocatable :: xl, yl
-    integer,      dimension(:),   allocatable :: ixl, iyl
+    real(num), dimension(:), allocatable :: kx, ky
+    real(num), dimension(:), allocatable :: xl, yl
+    integer, dimension(:), allocatable :: ixl, iyl
     character(len=2) :: interp
     real(num) :: R0, dti, dphi, kx_lim(2), ky_lim(2)
-    integer   :: iti, Ns, nk(2)
-    logical   :: enable
+    integer :: iti, Ns, nk(2)
+    logical :: enable
 contains
     procedure :: init => tSURFF2D_initialize
     procedure :: dt_step => tSURFF2D_dt_step
@@ -95,6 +95,7 @@ type, public :: pconst_mks
     real(dble_t) :: c = 2.99792458d+8 ! speed of light (m/s, exact)
     real(dble_t) :: e = 1.602176634d-19 ! elementary charge (C, exact)
     real(dble_t) :: m_e = 9.1093837015d-31 ! electron mass (kg, +/- 2.8d-40 kg)
+    real(dble_t) :: mu_0 = 4.d-7*pi ! free-space permeability (H/m, exact)
     real(dble_t) :: hbar = 1.0545718176461565d-34 ! reduced Planck constant (J.s, exact)
     real(dble_t) :: alpha = 7.2973525693d-3 ! fine-structure constant (+/- 1.1d-12)
     real(dble_t) :: lambda_Compton = 2.42631023867d-12 ! Compton wavelength (m, +/- 7.3d-22 m)
@@ -102,7 +103,7 @@ end type pconst_mks
 
 type, public :: pconst_cgs
     real(dble_t) :: c = 2.99792458d+10 ! speed of light (cm/s, exact)
-    real(dble_t) :: e = 4.803204712570263e-10 ! elementary charge (statC, exact)
+    real(dble_t) :: e = 4.803204712570263d-10 ! elementary charge (statC, exact)
     real(dble_t) :: m_e = 9.1093837015d-28 ! electron mass (g, +/- 2.8d-37 g)
     real(dble_t) :: hbar = 1.0545718176461565d-27 ! reduced Planck constant (erg.s, exact)
     real(dble_t) :: alpha = 7.2973525693d-3 ! fine-structure constant (+/- 1.1d-12)
@@ -146,11 +147,8 @@ subroutine psi1d_initialize_vars(this, nx, nt)
     implicit none
     class(SchrodingerWavefunction1D), intent(inout) :: this
     integer, intent(in) :: nx, nt
-
-    allocate(this%psi(nx))
-    allocate(this%grad_psi(nx), this%phase(nx))
+    allocate(this%psi(nx), this%grad_psi(nx), this%phase(nx))
     allocate(this%norm(nt), this%energy(nt))
-
     return
 end subroutine psi1d_initialize_vars
 
@@ -158,12 +156,8 @@ subroutine psi1dr_initialize_vars(this, nr, nt, l_max)
     implicit none
     class(SchrodingerWavefunction1DR), intent(inout) :: this
     integer, intent(in) :: nr, nt, l_max
-
-    allocate(this%phi(l_max+1,nr), this%Va(nr))
+    allocate(this%phi(l_max+1,nr), this%Va(nr), source=zero_c)
     allocate(this%norm(nt), this%energy(nt))
-
-    this%Va = (0.0_num,0.0_num)
-
     return
 end subroutine psi1dr_initialize_vars
 
@@ -171,11 +165,9 @@ subroutine psi2d_initialize_vars(this, nr, nt)
     implicit none
     class(SchrodingerWavefunction2D), intent(inout) :: this
     integer, intent(in) :: nr(2), nt
-
-    allocate(this%psi(nr(1),nr(2)))
-    allocate(this%grad_psi(nr(1),nr(2),2), this%phase(nr(1),nr(2)))
+    allocate(this%psi(nr(1),nr(2)), this%phase(nr(1),nr(2)))
+    allocate(this%grad_psi(nr(1),nr(2),2))
     allocate(this%norm(nt), this%energy(nt))
-
     return
 end subroutine psi2d_initialize_vars
 
@@ -926,7 +918,6 @@ end subroutine psi2d_dt_propagate_cnn
 subroutine psi1d_destructor(this)
     implicit none
     class(SchrodingerWavefunction1D), intent(inout) :: this
-
     if (allocated(this%psi)) deallocate(this%psi)
     if (allocated(this%grad_psi)) deallocate(this%grad_psi)
     if (allocated(this%phase)) deallocate(this%phase)
@@ -935,14 +926,12 @@ subroutine psi1d_destructor(this)
     if (allocated(this%D2x)) deallocate(this%D2x)
     if (allocated(this%M2x)) deallocate(this%M2x)
     if (allocated(this%stab)) deallocate(this%stab)
-
     return
 end subroutine psi1d_destructor
 
 subroutine psi1dr_destructor(this)
     implicit none
     class(SchrodingerWavefunction1DR), intent(inout) :: this
-
     if (allocated(this%V0)) deallocate(this%V0)
     if (allocated(this%Va)) deallocate(this%Va)
     if (allocated(this%phi)) deallocate(this%phi)
@@ -955,14 +944,12 @@ subroutine psi1dr_destructor(this)
     if (allocated(this%stab)) deallocate(this%stab)
     if (allocated(this%energy)) deallocate(this%energy)
     if (allocated(this%dV0_dr)) deallocate(this%dV0_dr)
-
     return
 end subroutine psi1dr_destructor
 
 subroutine psi2d_destructor(this)
     implicit none
     class(SchrodingerWavefunction2D), intent(inout) :: this
-
     if (allocated(this%psi)) deallocate(this%psi)
     if (allocated(this%grad_psi)) deallocate(this%grad_psi)
     if (allocated(this%phase)) deallocate(this%phase)
@@ -974,7 +961,6 @@ subroutine psi2d_destructor(this)
     if (allocated(this%M2y)) deallocate(this%M2y)
     if (allocated(this%stabx)) deallocate(this%stabx)
     if (allocated(this%staby)) deallocate(this%staby)
-
     return
 end subroutine psi2d_destructor
 
@@ -1158,14 +1144,14 @@ end function expectE_2D_cnn
 subroutine photoe_spectrum_winop_1D(psi, V0, E, dx, n, W)
     implicit none
     complex(num), intent(in) :: psi(:)
-    real(num),    intent(in) :: V0(:), E(:), dx
-    integer,      intent(in) :: n
-    real(num),   intent(out) :: W(:)
+    real(num), intent(in) :: V0(:), E(:), dx
+    integer, intent(in) :: n
+    real(num), intent(out) :: W(:)
 
     complex(num), dimension(:), allocatable, save :: OP, ft, rt
 
     real(num) :: gamma, q_nk
-    integer   :: nx, nbins, v, k, j
+    integer :: nx, nbins, v, k, j
 
     nx = size(V0); nbins = size(E);
 
@@ -1243,8 +1229,8 @@ end subroutine photoe_spectrum_winop_1D
 subroutine photoe_spectrum_winop_1DR(this, E, dr, n, W)
     implicit none
     class(SchrodingerWavefunction1DR), intent(in) :: this
-    real(num), intent(in)  :: E(:), dr
-    integer,   intent(in)  :: n
+    real(num), intent(in) :: E(:), dr
+    integer, intent(in) :: n
     real(num), intent(out) :: W(:)
 
     complex(num), dimension(:), allocatable, save :: Wls, OP, ft, rt
@@ -1587,13 +1573,13 @@ end subroutine tSURFF2D_destructor
 
 subroutine calc_bohm_velocity(bv, Jxt, psi, dx, nx, nt, k)
     implicit none
-    integer,      intent(in)                    :: nx, nt, k
-    real(num),    intent(in)                    :: dx
-    complex(num), intent(in),  dimension(nt,nx) :: psi
+    integer, intent(in) :: nx, nt, k
+    real(num), intent(in) :: dx
+    complex(num), intent(in), dimension(nt,nx) :: psi
 
-    real(num),    intent(out), dimension(nt,nx) :: bv, Jxt
-    real(num),                 dimension(nx)    :: rho
-    complex(num),              dimension(nx)    :: dpsi_dx, dpsiC_dx
+    real(num), intent(out), dimension(nt,nx) :: bv, Jxt
+    real(num), dimension(nx) :: rho
+    complex(num), dimension(nx) :: dpsi_dx, dpsiC_dx
 
     integer :: j
 
@@ -1614,14 +1600,14 @@ end subroutine calc_bohm_velocity
 
 subroutine calc_bohm_velocity_from_phase(bv, psi, dx, nx, nt, k)
     implicit none
-    integer,      intent(in)                    :: nx, nt, k
-    real(num),    intent(in)                    :: dx
+    integer, intent(in) :: nx, nt, k
+    real(num), intent(in) :: dx
     complex(num), intent(in),  dimension(nt,nx) :: psi
-    real(num),    intent(out), dimension(nt,nx) :: bv
-    real(num),                 dimension(nx)    :: S
+    real(num), intent(out), dimension(nt,nx) :: bv
+    real(num), dimension(nx) :: S
 
     real(num) :: delta
-    integer   :: j
+    integer :: j
 
     ! compute phase of wavefunction
     S = atan2(aimag(psi(k,:)),real(psi(k,:)))
@@ -1636,12 +1622,11 @@ end subroutine calc_bohm_velocity_from_phase
 
 subroutine calc_bohm_trajectories(bx, bv, x, dt, nx, nt)
     implicit none
-    integer,   intent(in) :: nx, nt
+    integer, intent(in) :: nx, nt
     real(num), intent(in) :: dt
-    real(num), intent(in),  dimension(nx)    :: x
-    real(num), intent(in),  dimension(nt,nx) :: bv
+    real(num), intent(in), dimension(nx)    :: x
+    real(num), intent(in), dimension(nt,nx) :: bv
     real(num), intent(out), dimension(nt,nx) :: bx
-
     integer :: j
 
     ! numerically integrate the velocity field at each position
@@ -1653,17 +1638,17 @@ end subroutine calc_bohm_trajectories
 
 subroutine chk_continuity_eqn(cty, psi, Jxt, dx, dt, nx, nt)
     implicit none
-    integer,      intent(in)                    :: nx, nt
-    real(num),    intent(in)                    :: dx, dt
-    real(num),    intent(in),  dimension(nt,nx) :: Jxt
-    complex(num), intent(in),  dimension(nt,nx) :: psi
-    real(num),    intent(out), dimension(nt,nx) :: cty
+    integer, intent(in) :: nx, nt
+    real(num), intent(in) :: dx, dt
+    real(num), intent(in), dimension(nt,nx) :: Jxt
+    complex(num), intent(in), dimension(nt,nx) :: psi
+    real(num), intent(out), dimension(nt,nx) :: cty
 
     real(num), dimension(nt,nx) :: rho
     real(num), dimension(nt,nx) :: drho_dt
-    real(num), dimension(nt)    :: divJ
+    real(num), dimension(nt) :: divJ
 
-    integer :: j,k
+    integer :: j, k
 
     rho = abs(psi)**2
 

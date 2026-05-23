@@ -1,0 +1,25 @@
+lam0_cm: 1.d-4        ! normalization length [cm]
+
+N_seed: 8             ! number of seed electrons
+
+dt_alg: adaptive      ! time-stepping algorithm
+dt_max: 1.0           ! maximum time-step [sim.u.]
+dt_scl: 1.d-2         ! adaptive time-step scale factor, in (0,1]
+
+Ep_min: 1.0           ! cutoff energy for photon emission [sim.u.]
+photon_dynamics: T    ! toggle photon propagation and e-/e+ pair production
+
+tables_path:          ! path to QED lookup tables
+"./tables/"
+
+! Electron parameters
+E: 1.d+9              ! energy [eV]
+r: 1.d+3 0. 0.        ! injection point [sim.u.]
+k: 0 0 -1             ! propagation direction (un-normalized)
+
+! Field parameters
+Ro: 1.d-5             ! wire thickness [m]
+I_A: 3.d+7            ! current [A] (+Z oriented)
+
+! End criterion
+t_max: 1.d+5          ! final time (lab frame) [sim.u.]

@@ -108,8 +108,8 @@ subroutine vdet_initialize(this, geom, R0, Nv, x, y, n, nt, sdim)
     end select
 
     ! initialize blank data arrays
-    allocate(this%rho(nt), this%phase(nt), source=0.0_num)
-    allocate(this%Krt(sdim,nt), this%Jrt(sdim,nt), source=0.0_num)
+    allocate(this%rho(nt), this%phase(nt), source=zero_r)
+    allocate(this%Krt(sdim,nt), this%Jrt(sdim,nt), source=zero_r)
 
     return
 end subroutine vdet_initialize
@@ -228,13 +228,11 @@ end subroutine vdet_calculate_current_2d
 
 subroutine vdet_calculate_current_from_phase(this, psi, dr, nr, k)
     implicit none
-    class(vdet),  intent(inout) :: this
-    integer,      intent(in)    :: nr(2), k
-    real(num),    intent(in)    :: dr(2)
-    complex(num), intent(in)    :: psi(nr(1),nr(2))
-
+    class(vdet), intent(inout) :: this
+    integer, intent(in) :: nr(2), k
+    real(num), intent(in) :: dr(2)
+    complex(num), intent(in) :: psi(nr(1),nr(2))
     real(num) :: phase_psi(nr(1),nr(2)), grad_phase_psi(nr(1),nr(2))
-
     integer :: j
 
     ! compute wavefunction phase
@@ -255,10 +253,9 @@ end subroutine vdet_calculate_current_from_phase
 
 subroutine edet_detect(this, electron, sdim)
     implicit none
-    class(edet),              intent(inout) :: this
-    class(particle_electron), intent(in)    :: electron(:)
-    integer,                  intent(in)    :: sdim
-
+    class(edet), intent(inout) :: this
+    class(particle_electron), intent(in) :: electron(:)
+    integer, intent(in) :: sdim
     integer :: ine
 
     ! total number of electrons
@@ -269,7 +266,7 @@ subroutine edet_detect(this, electron, sdim)
         allocate(this % data(this%nde,4))
         do ine=1,this%nde
             this % data(ine,:) = (/ &
-                electron(ine) % x,  &
+                electron(ine) % x, &
                 electron(ine) % px, &
                 electron(ine) % phase, &
                 electron(ine) % weight &
@@ -280,8 +277,8 @@ subroutine edet_detect(this, electron, sdim)
         allocate(this % data(this%nde,6))
         do ine=1,this%nde
             this % data(ine,:) = (/ &
-                electron(ine) % x,  &
-                electron(ine) % y,  &
+                electron(ine) % x, &
+                electron(ine) % y, &
                 electron(ine) % px, &
                 electron(ine) % py, &
                 electron(ine) % phase, &
@@ -332,7 +329,7 @@ end subroutine electron_dt_propagate_analytic_2d
 subroutine electron_dt_propagate_numeric(this, V, x, y, dr, dt, nr)
     implicit none
     class(particle_electron), intent(inout) :: this
-    integer,   intent(in) :: nr(2)
+    integer, intent(in) :: nr(2)
     real(num), intent(in) :: x(nr(1)), y(nr(2)), dr(2), dt
 
     real(num), intent(in) :: V(nr(1),nr(2))
